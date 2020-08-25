@@ -50,4 +50,40 @@ module.exports = function(app) {
       });
     }
   });
+
+  app.get("/api/bikes", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/featured", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/brand/:id", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/category/:id", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/color/:id", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/frame_size/:id", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/color/:id", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/frame_material/:id", (req, res) => {
+    res;
+  });
+
+  app.get("/api/bikes/filter/year/:id", (req, res) => {
+    res;
+  });
 };
