@@ -42,7 +42,7 @@
             <h4 data-toggle="collapse" data-target="#category">Category <span id="test" class="badge badge-pill badge-dark">{{categoryTotal}}</span></h4>
             <div id="category" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each category}}
-                    <a id="{{this}}" href="/?category={{this}}" class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</a>
+                    <li id="{{this}}" href="/?category={{this}}" class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
                 {{/each}}
             </div>
 

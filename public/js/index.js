@@ -1,6 +1,6 @@
 $(document).ready(() => {
   $("#category li").click(() => {
-    window.location.href += `api/bikes/filter/category/${event.target.id}`;
+    // window.location.href += `api/bikes/filter/category/${event.target.id}`;
     $.get("/api/bikes/filter/category/" + event.target.id, renderPage);
   });
 
