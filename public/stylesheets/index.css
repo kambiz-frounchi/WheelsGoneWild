@@ -1,0 +1,70 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.card {
+  width: 350px;
+  height: 420px;
+  max-height: 420px;
+  margin-bottom: 35px;
+  /* padding-top: 35px; */
+}
+
+.card-img, .card-img-top{
+  height: 200px;
+}
+
+.card-body {
+  height: 180px;
+}
+
+#brand, #colour, #frameSize, #frameMaterial, #year{
+  max-height: 350px;
+  overflow: auto;
+}
+
+/* span {
+  position: static;
+  left: 25px;
+} */
+
+.list-group {
+  margin-bottom: 35px;
+}
+
+#feature {
+  height: 500px;
+}
+
+#bikeList {
+  justify-content: center;
+  padding-top: 35px;
+}
+
+.Electric {
+  background-color: #ffda14;
+}
+
+.Junior {
+  background-color: #7a31d8ad;
+}
+
+.Mountain {
+  background-color: #19b72e;
+}
+
+.Road {
+  background-color: #96948fad;
+}

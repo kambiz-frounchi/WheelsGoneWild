@@ -1,0 +1,40 @@
+Bike
+id PK
+
+Order 
+id PK
+price
+bikeId FK
+userId FK
+state (pending/shipping/delivered) -> enumerations ... 
+createdAt
+updatedAt 
+
+User
+id PK
+role (0/1) binary 0 -> normal (default), 1 = admin 
+first_name
+last_name
+email
+password
+
+Cart
+id PK 
+userId FK
+bikeId FK
+
+Add to cart
+checkout --> create order 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
