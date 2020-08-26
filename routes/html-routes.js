@@ -29,16 +29,19 @@ module.exports = function(app) {
 
   app.get("/", (req, res) => {
     db.Bike.findAll({}).then(dbBike => {
-
       const category = [...new Set(dbBike.map(ele => ele.dataValues.category))];
 
       const brand = [...new Set(dbBike.map(ele => ele.dataValues.brand))];
 
       const colour = [...new Set(dbBike.map(ele => ele.dataValues.colour))];
 
-      const frameSize = [...new Set(dbBike.map(ele => ele.dataValues.framesize))];
-      
-      const frameMaterial = [...new Set(dbBike.map(ele => ele.dataValues.framematerial))];
+      const frameSize = [
+        ...new Set(dbBike.map(ele => ele.dataValues.framesize))
+      ];
+
+      const frameMaterial = [
+        ...new Set(dbBike.map(ele => ele.dataValues.framematerial))
+      ];
 
       const year = [...new Set(dbBike.map(ele => ele.dataValues.year))];
 
@@ -63,5 +66,3 @@ module.exports = function(app) {
     });
   });
 };
-
-//  limit: 10 

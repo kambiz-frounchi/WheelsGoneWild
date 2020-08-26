@@ -38,4 +38,6 @@ db.sequelize.sync().then(() => {
     );
   });
 });
+
+// eslint-disable-next-line prettier/prettier
 // { force: true }
