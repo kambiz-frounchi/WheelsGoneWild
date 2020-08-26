@@ -60,11 +60,25 @@ module.exports = function(app) {
   });
 
   app.get("/api/bikes/filter/brand/:id", (req, res) => {
-    res;
+    db.Bike.findAll({
+      where: {
+        brand: req.params.id
+      }
+    }).then(dbBike => {
+      res.json(dbBike);
+    });
   });
 
   app.get("/api/bikes/filter/category/:id", (req, res) => {
-    res;
+    db.Bike.findAll({
+      where: {
+        category: req.params.id
+      }
+      // limit: 10
+    }).then(dbBike => {
+      console.log(dbBike);
+      res.json(dbBike);
+    });
   });
 
   app.get("/api/bikes/filter/color/:id", (req, res) => {
@@ -75,15 +89,27 @@ module.exports = function(app) {
     res;
   });
 
-  app.get("/api/bikes/filter/color/:id", (req, res) => {
-    res;
-  });
-
   app.get("/api/bikes/filter/frame_material/:id", (req, res) => {
-    res;
+    db.Bike.findAll({
+      where: {
+        framematerial: req.params.id
+      }
+      // limit: 10
+    }).then(dbBike => {
+      console.log(dbBike);
+      res.json(dbBike);
+    });
   });
 
   app.get("/api/bikes/filter/year/:id", (req, res) => {
-    res;
+    db.Bike.findAll({
+      where: {
+        year: req.params.id
+      }
+      // limit: 10
+    }).then(dbBike => {
+      console.log(dbBike);
+      res.json(dbBike);
+    });
   });
 };
