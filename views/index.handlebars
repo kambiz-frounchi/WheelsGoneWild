@@ -39,53 +39,53 @@
 
     <div class="row">
         <div class="col-2">
-            <h4>Category</h4>
-            <ul id="category" class="list-group">
+            <h4 data-toggle="collapse" data-target="#category">Category <span id="test" class="badge badge-pill badge-dark">{{categoryTotal}}</span></h4>
+            <div id="category" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each category}}
-                    <li class="list-group-item">{{this}}</li>
+                    <a id="{{this}}" href="/?category={{this}}" class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</a>
                 {{/each}}
-            </ul>
+            </div>
 
-            <h4>Brand</h4>
-            <ul id="brand" class="list-group">
+            <h4 data-toggle="collapse" data-target="#brand">Brand <span class="badge badge-pill badge-dark">{{brandTotal}}</span></h4>
+            <div id="brand" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each brand}}
-                    <li class="list-group-item">{{this}}</li>
+                    <li id="{{this}}" class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
                 {{/each}}
-            </ul>
-
-            <ul id="colour" class="list-group">
-                <h4>Color</h4>
+            </div>
+            
+            <h4 data-toggle="collapse" data-target="#colour">Color <span class="badge badge-pill badge-dark">{{colourTotal}}</span></h4>
+            <div id="colour" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each colour}}
-                    <li class="list-group-item">{{this}}</li>
+                    <li class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
                 {{/each}}
-            </ul>
+            </div>
 
-            <ul id="frameSize" class="list-group">
-                <h4>Frame Size</h4>
+            <h4 data-toggle="collapse" data-target="#frameSize">Frame Size <span class="badge badge-pill badge-dark">{{frameSizeTotal}}</span></h4>
+            <div id="frameSize" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each frameSize}}
-                    <li class="list-group-item">{{this}}</li>
+                    <li class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
                 {{/each}}
-            </ul>
-
-            <ul id="frameMaterial" class="list-group">
-                <h4>Frame Material</h4>
+            </div>
+            
+            <h4 data-toggle="collapse" data-target="#frameMaterial">Frame Material<span class="badge badge-pill badge-dark">{{frameMaterialTotal}}</span></h4>
+            <div id="frameMaterial" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each frameMaterial}}
-                    <li class="list-group-item">{{this}}</li>
+                    <li id="{{this}}" class="list-group-item" data-toggle="list" role="tab">{{this}}</li>
                 {{/each}}
-            </ul>
-
-            <ul id="year" class="list-group">
-                <h4>Year</h4>
+            </div>
+            
+            <h4 data-toggle="collapse" data-target="#year">Year <span class="badge badge-pill badge-dark">{{yearTotal}}</span></h4>
+            <div id="year" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each year}}
-                    <li class="list-group-item">{{this}}</li>
+                    <li id="{{this}}" class="list-group-item" data-toggle="list" role="tab">{{this}}</li>
                 {{/each}}
-            </ul>
+            </div>
         </div>
 
         <div class="col-10">
             <div class="row">
             <div class="col-10">
-            <h4>{{searchTotal}} Found Results; Pagination 10/20/40</h4>
+            <h4 id="searchTotal">{{searchTotal}} Found Results; Pagination 10/20/40</h4>
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -100,17 +100,18 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div id="bikeList" class="row">
                 {{!-- <div class="card-deck"> --}}
                 {{#each card}}
-                    <div class="card">
-                        {{!-- <img class="card-img-top" src="{{image}}" alt="Card image cap"> --}}
-                        <div class="card-body">
+                    <div class="card mx-auto">
+                        <img class="card-img-top" src="/images/{{id}}.jpg" alt="Card image cap">
+                        <div class="card-body {{category}}">
                             <h5 class="card-title">{{name}}</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text">{{brand}}  {{year}}</p>
+                    
 
                         <div class="card-footer">
-                            <small class="text-muted">Order</small>
+                            <button type="button" class="btn btn-secondary">Order with placeholder Price</button>
                         </div>
                         </div>
                     </div>
