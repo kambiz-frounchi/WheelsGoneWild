@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.card {
+    width: 350px;
+}
+
+#brand, #colour, #frameSize{
+  height: 350px;
+  overflow: auto;
+}
+
+#feature {
+  height: 500px;
+}
