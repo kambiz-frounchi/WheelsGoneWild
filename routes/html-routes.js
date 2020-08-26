@@ -28,7 +28,7 @@ module.exports = function(app) {
   });
 
   app.get("*", (req, res) => {
-    db.Bike.findAll().then(dbBike => {
+    db.Bike.findAll({ }).then(dbBike => {
 
       const category = [...new Set(dbBike.map(ele => ele.dataValues.category))];
 
@@ -42,6 +42,8 @@ module.exports = function(app) {
 
       const year = [...new Set(dbBike.map(ele => ele.dataValues.year))];
 
+      const card = [...new Set(dbBike.map(ele => ele.dataValues))];
+
       res.render("index", {
         category: category.sort(),
         brand: brand.sort(),
@@ -49,10 +51,11 @@ module.exports = function(app) {
         frameSize: frameSize.sort(),
         frameMaterial: frameMaterial.sort(),
         year: year.sort(),
-        searchTotal: dbBike.length
+        searchTotal: dbBike.length,
+        card: card
       });
     });
   });
 };
 
-//  {limit:2}
+//  limit: 10 
