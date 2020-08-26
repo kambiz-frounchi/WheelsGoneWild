@@ -27,8 +27,8 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
   });
 
-  app.get("*", (req, res) => {
-    db.Bike.findAll({ }).then(dbBike => {
+  app.get("/", (req, res) => {
+    db.Bike.findAll({}).then(dbBike => {
 
       const category = [...new Set(dbBike.map(ele => ele.dataValues.category))];
 
@@ -46,11 +46,17 @@ module.exports = function(app) {
 
       res.render("index", {
         category: category.sort(),
+        categoryTotal: category.length,
         brand: brand.sort(),
+        brandTotal: brand.length,
         colour: colour.sort(),
+        colourTotal: colour.length,
         frameSize: frameSize.sort(),
+        frameSizeTotal: frameSize.length,
         frameMaterial: frameMaterial.sort(),
+        frameMaterialTotal: frameMaterial.length,
         year: year.sort(),
+        yearTotal: year.length,
         searchTotal: dbBike.length,
         card: card
       });
