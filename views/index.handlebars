@@ -60,7 +60,16 @@
                 {{/each}}
             </div>
 
-            <h4 data-toggle="collapse" data-target="#frameSize">Frame Size <span class="badge badge-pill badge-dark">{{frameSizeTotal}}</span></h4>
+            <h4 data-toggle="collapse" data-target="#price">Price (CAD)</h4>
+            <div id="price">
+            <!-- Synced slider and textbox to input number of characters -->
+            <input type="range" min="364" max="2000" value="364" id="lengthRange" for="lengthNumber">
+            <input type="number" min="364" max="2000" value="364" id="lengthNumber" list="defaultNumbers" required>
+            <span class="validity"></span>
+            <datalist id="defaultNumbers"></datalist>
+            </div>
+
+            <h4 id="frameSizeHead" data-toggle="collapse" data-target="#frameSize">Frame Size <span class="badge badge-pill badge-dark">{{frameSizeTotal}}</span></h4>
             <div id="frameSize" class="list-group collapse show" data-toggle="items" role="tablist">
                 {{#each frameSize}}
                     <li class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
@@ -108,10 +117,9 @@
                         <div class="card-body {{category}}">
                             <h5 class="card-title">{{name}}</h5>
                             <p class="card-text">{{brand}}  {{year}}</p>
-                    
-
+                            <p class="card-text">$ {{price}}</p>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-secondary">Order with placeholder Price</button>
+                            <button type="button" data-order="{{id}}" class="btn btn-secondary cardCart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </div>
                         </div>
                     </div>
