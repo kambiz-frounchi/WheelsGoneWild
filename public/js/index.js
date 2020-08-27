@@ -1,4 +1,11 @@
 $(document).ready(() => {
+  // Event listener for when a bike's order is clicked
+  $("[data-order]").click(() => {
+    console.log(`bikeid is ${event.target.getAttribute("data-order")}`);
+    // Code for $.Post to cart with bikeid
+    // Needs code to visually update cart items and total
+  });
+
   $("#category li").click(() => {
     // window.location.href += `api/bikes/filter/category/${event.target.id}`;
     $.get("/api/bikes/filter/category/" + event.target.id, renderPage);
@@ -20,15 +27,15 @@ $(document).ready(() => {
     console.log(data);
     $("#bikeList").empty();
     const items = data.map(ele => {
-      const { id, category, name, brand, year } = ele;
+      const { id, category, name, brand, year, price } = ele;
       return `<div class="card mx-auto">
       <img class="card-img-top" src="/images/${id}.jpg" alt="Card image cap">
       <div class="card-body ${category}">
-          <h5 class="card-title">${name}</h5>
-          <p class="card-text">${brand}  ${year}</p>
-  
+      <h5 class="card-title">${name}</h5>
+      <p class="card-text">${brand}  ${year}</p>
+      <p class="card-text">$ ${price}</p>
       <div class="card-footer">
-          <button type="button" class="btn btn-secondary">Order with placeholder Price</button>
+      <button type="button" data-order="${id}" class="btn btn-secondary cardCart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
       </div>
       </div>
   </div>`;
@@ -36,4 +43,29 @@ $(document).ready(() => {
     $("#searchTotal")[0].textContent = `${data.length} Found Results`;
     $("#bikeList").append(items);
   };
+
+  // Code for sync-ing slider and textbox value
+  const lengthRange = document.querySelector("#lengthRange");
+  const lengthNumber = document.querySelector("#lengthNumber");
+
+  // Sync slider with textbox and vice versa
+  lengthRange.addEventListener("input", syncSliderBox);
+  lengthNumber.addEventListener("input", syncSliderBox);
+  function syncSliderBox(event) {
+    lengthRange.value = event.target.value;
+    lengthNumber.value = event.target.value;
+  }
+
+  // Automatically populate data list for textbox
+  const list = document.querySelector("#defaultNumbers");
+  const allNum = [];
+  for (let i = Number(lengthNumber.min); i <= Number(lengthNumber.max); i++) {
+    allNum.push(i); // Create an array from 360 to 2000;
+  }
+  // Using the earlier array, create the option element in the datalist dynamically
+  allNum.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item;
+    list.appendChild(option);
+  });
 });
