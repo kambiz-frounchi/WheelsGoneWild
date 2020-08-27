@@ -13,27 +13,47 @@ html, body {
 .container-fluid {
   padding-left: 50px;
   padding-right: 50px;
+  /* background-image: url("/images/background.svg"); */
+  /* color: White */
 }
 .card {
   width: 350px;
-  height: 420px;
-  max-height: 420px;
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; 
   margin-bottom: 35px;
-  /* padding-top: 35px; */
+
 }
 
 .card-img, .card-img-top{
   height: 200px;
+  border-radius: 5px 5px 0 0;
 }
 
 .card-body {
-  height: 180px;
+  height: 200px;
+}
+
+.card-title {
+  padding: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.card-text {
+  margin: 0;
+  font-size: 1.2rem;
 }
 
 .card-footer {
   width: 240px;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  bottom: 20px;
+  left: 55px;
+}
+
+.cardYear{
+  float: right;
 }
 
 .cardCart {
