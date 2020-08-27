@@ -1,0 +1,63 @@
+Bike
+id PK
+
+Order 
+id PK
+totalprice
+bikeId FK
+userId FK
+state (pending/shipping/delivered) -> enumerations ... 
+createdAt
+updatedAt 
+
+User
+id PK
+role (0/1) binary 0 -> normal (default), 1 = admin 
+first_name
+last_name
+email
+password
+
+Cart
+id PK 
+userId FK
+bikeId FK
+
+Inventory
+id PK
+bikeId FK
+quantity 
+
+
+
+
+
+
+Add to cart
+checkout --> create order 
+
+
+
+Handlebar:
+
+Index page (shows bikes)
+
+Signup page (modal or whatever is provided by passport or handlebar)
+Login page (modal or whatever is provided by passport or handlebar)
+Cart page 
+Normal user page (shows order history and user cart --> handlebar)
+Admin user page (shows options to add/remove/update bikes)
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+

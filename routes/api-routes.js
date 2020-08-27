@@ -55,6 +55,10 @@ module.exports = function(app) {
     res;
   });
 
+  app.get("/api/bikes/:id", (req, res) => {
+    res;
+  });
+
   app.get("/api/bikes/filter/featured", (req, res) => {
     res;
   });
@@ -111,5 +115,17 @@ module.exports = function(app) {
       console.log(dbBike);
       res.json(dbBike);
     });
+  });
+
+  app.get("/api/users/", (req, res) => {
+    res;
+  });
+
+  app.get("/api/users/:userid/orders", (req, res) => {
+    res;
+  });
+
+  app.get("/api/users/:userid/orders/:order_id", (req, res) => {
+    res;
   });
 };
