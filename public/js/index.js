@@ -1,4 +1,34 @@
 $(document).ready(() => {
+  const lengthRange = document.querySelector("#lengthRange");
+  const lengthNumber = document.querySelector("#lengthNumber");
+
+  // Sync slider with textbox and vice versa
+  lengthRange.addEventListener("input", syncSliderBox);
+  lengthNumber.addEventListener("input", syncSliderBox);
+  function syncSliderBox(event) {
+    lengthRange.value = event.target.value;
+    lengthNumber.value = event.target.value;
+  }
+
+  // Automatically populate data list for textbox
+  const list = document.querySelector("#defaultNumbers");
+  const allNum = [];
+  for (let i = Number(lengthNumber.min); i <= Number(lengthNumber.max); i++) {
+    allNum.push(i); // Create an array from 360 to 2000;
+  }
+  // Using the earlier array, create the option element in the datalist dynamically
+  allNum.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item;
+    list.appendChild(option);
+  });
+
+  $("[data-order]").click(() => {
+    console.log(`bikeid is ${event.target.getAttribute("data-order")}`);
+  });
+
+  document.querySelectorAll("[data-order]");
+
   $("#category li").click(() => {
     // window.location.href += `api/bikes/filter/category/${event.target.id}`;
     $.get("/api/bikes/filter/category/" + event.target.id, renderPage);
