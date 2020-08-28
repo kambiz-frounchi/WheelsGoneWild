@@ -50,6 +50,16 @@ $(document).ready(() => {
     $("#bikeList").append(items);
   };
 
+  // Menu handling when browser width is reduced
+  mobileMenu = () => {
+    const menu = document.getElementById("menu");
+    if (menu.className === "menu") {
+      menu.className += " responsive";
+    } else {
+      menu.className = "menu";
+    }
+  };
+
   // Code for syncing slider and textbox value
   const lengthRange = document.querySelector("#lengthRange");
   const lengthNumber = document.querySelector("#lengthNumber");
