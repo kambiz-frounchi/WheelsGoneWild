@@ -1,11 +1,16 @@
 $(document).ready(() => {
+  const cart = new Set();
+
   // Event listener for when a bike's order is clicked
   $("#bikeList").click(() => {
     event.stopPropagation();
-    console.log(`bikeid is ${event.target.getAttribute("data-order")}`);
+    // console.log(`bike id is ${event.target.getAttribute("data-order")}`);
+    if (event.target.getAttribute("data-order") !== null) {
+      cart.add(event.target.getAttribute("data-order"));
+    }
 
     // Increment counter
-    $counter = $('.cartCounter')
+    $counter = $(".cartCounter");
     val = parseInt($counter.text());
     val++;
     // Animation for badge counter
@@ -16,6 +21,12 @@ $(document).ready(() => {
       .animate({ top: "11px", opacity: 1 });
   });
 
+  // Event listener for shopping cart on topmenu
+  $("#cartParent").click(() => {
+    console.log(cart);
+  });
+
+  // Event listeners for left side filters
   $("#category li").click(() => {
     // window.location.href += `api/bikes/filter/category/${event.target.id}`;
     $.get("/api/bikes/filter/category/" + event.target.id, renderPage);
