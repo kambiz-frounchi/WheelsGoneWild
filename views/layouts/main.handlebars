@@ -18,12 +18,25 @@
     </style> --}}
     
     <header>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Wheels Gone Wild</h1>
-        </div>
-    </div>
+      {{!-- Top Menu --}}
+      <div class="menu" id="menu">
+      <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+      <a href=""><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href=""><i class="fas fa-clipboard-list"></i> Sign Up</a>
+      <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
+      <a class="menuRight" href=""><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a class="menuRight" href=""><i class="fas fa-shopping-cart"></i> Shopping Cart</a>
+      <a class="menuRight" href=""><i class="fas fa-user"></i> Profile</a>
+      </div>
+
+      {{!-- Jumbotron --}}
+      <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+              <h1 class="display-4">Wheels Gone Wild</h1>
+          </div>
+      </div>
     </header>
+  
     {{{ body }}}
 
     <script
