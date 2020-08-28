@@ -44,6 +44,22 @@ html, body {
   display: none;
 }
 
+/* Shopping Cart */
+.cardParent {
+  position: relative;
+}
+
+/* Shopping Cart Icon */
+.cartCounter {   
+  position: absolute;
+  background-color: rgba(212, 19, 13, 1);
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font: 8px Verdana;
+  top: 11px;
+}
+
 /* Menu at reduced browser width */
 @media screen and (max-width: 600px) {
   .menu a:not(:first-child) {display: none;}
@@ -123,9 +139,14 @@ html, body {
   float: right;
 }
 
+/* Card Order Button */
 .cardCart {
   width: 200px;
   font-size: 1.5rem;
+}
+
+.cardCart * {
+  pointer-events: none;
 }
 
 #brand, #colour, #frameSize, #frameMaterial, #year{

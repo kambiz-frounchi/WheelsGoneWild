@@ -1,9 +1,19 @@
 $(document).ready(() => {
   // Event listener for when a bike's order is clicked
   $("#bikeList").click(() => {
+    event.stopPropagation();
     console.log(`bikeid is ${event.target.getAttribute("data-order")}`);
-    // Code for $.Post to cart with bikeid
-    // Needs code to visually update cart items and total
+
+    // Increment counter
+    $counter = $('.cartCounter')
+    val = parseInt($counter.text());
+    val++;
+    // Animation for badge counter
+    $counter
+      .css({ opacity: 0 })
+      .text(val)
+      .css({ top: "-10px" })
+      .animate({ top: "11px", opacity: 1 });
   });
 
   $("#category li").click(() => {
