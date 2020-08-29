@@ -31,23 +31,29 @@ module.exports = function(app) {
 
   app.get("/", (req, res) => {
     db.Bike.findAll({}).then(dbBike => {
-      const category = [...new Set(dbBike.map(ele => ele.dataValues.category))];
+      const category = [
+        ...new Set(dbBike.map(element => element.dataValues.category))
+      ];
 
-      const brand = [...new Set(dbBike.map(ele => ele.dataValues.brand))];
+      const brand = [
+        ...new Set(dbBike.map(element => element.dataValues.brand))
+      ];
 
-      const colour = [...new Set(dbBike.map(ele => ele.dataValues.colour))];
+      const colour = [
+        ...new Set(dbBike.map(element => element.dataValues.colour))
+      ];
 
       const frameSize = [
-        ...new Set(dbBike.map(ele => ele.dataValues.framesize))
+        ...new Set(dbBike.map(element => element.dataValues.framesize))
       ];
 
       const frameMaterial = [
-        ...new Set(dbBike.map(ele => ele.dataValues.framematerial))
+        ...new Set(dbBike.map(element => element.dataValues.framematerial))
       ];
 
-      const year = [...new Set(dbBike.map(ele => ele.dataValues.year))];
+      const year = [...new Set(dbBike.map(element => element.dataValues.year))];
 
-      const card = [...new Set(dbBike.map(ele => ele.dataValues))];
+      const card = [...new Set(dbBike.map(element => element.dataValues))];
 
       res.render("index", {
         category: category.sort(),

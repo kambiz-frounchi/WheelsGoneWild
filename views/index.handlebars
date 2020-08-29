@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div id="feature" class="row">
-    <h2>Featured Bikes</h2>
+    {{!-- <div id="feature" class="row">
+    <h2>Featured Bikes</h2> --}}
     <!-- Carousel -->
     {{!-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -35,7 +35,7 @@
             <span class="sr-only">Previous</span>
         </a>
     </div> --}}
-    </div>
+    {{!-- </div> --}}
 
     <div class="row">
         <div class="col-2">
@@ -92,13 +92,14 @@
         </div>
 
         <div class="col-10">
+
             <div class="row">
-            <div class="col-10">
-            <h4 id="searchTotal">{{searchTotal}} Found Results; Pagination 10/20/40</h4>
-            </div>
+            {{!-- <div class="col-10"> --}}
+            <h4 id="searchTotal">{{searchTotal}} Found Results</h4>
+            {{!-- </div> --}}
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown button
+                    Most Popular
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Most Popular</a>
@@ -117,8 +118,8 @@
                         <div class="card-body {{category}}">
                         <h5 class="card-title">{{name}}</h5>
                             <div class="row">
-                            <div class="col-4">
-                            <p class="card-text cardPrice"><i class="fas fa-dollar-sign"></i> {{price}}</p>
+                            <div class="col-5">
+                            <p class="card-text cardPrice"><i class="fas fa-dollar-sign"> {{price}}</i> </p>
                             </div>
                             <div class="col">
                             <p class="card-text cardYear">{{brand}} {{year}}</p>
