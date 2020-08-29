@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       state: {
-        type: DataTypes.ENUM("pending", "shipping", "delivered"),
+        type: DataTypes.ENUM("pending", "ordered", "shipping", "delivered"),
         defaultValue: "pending"
       }
     },
@@ -15,16 +15,14 @@ module.exports = function(sequelize, DataTypes) {
   );
 
   Order.associate = function(models) {
-    Order.belongsTo(models.Bike, {
+    Order.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
 
-    Order.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
+    Order.hasMany(models.OrderItem, {
+      onDelete: "cascade"
     });
   };
   return Order;
