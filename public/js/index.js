@@ -1,12 +1,21 @@
 $(document).ready(() => {
   const cart = new Set();
 
+  // Event listener for shopping cart on menubar
+  $("#cartParent").click(() => {
+    event.preventDefault();
+  });
+
   // Event listener for when a bike's order is clicked
   $("#bikeList").click(() => {
     event.stopPropagation();
-    // console.log(`bike id is ${event.target.getAttribute("data-order")}`);
+    console.log(`bike id is ${event.target.getAttribute("data-order")}`);
     if (event.target.getAttribute("data-order") !== null) {
       cart.add(event.target.getAttribute("data-order"));
+
+      $.post("/api/orderItem", {
+        bikeid: 1
+      });
     }
 
     // Increment counter
@@ -19,11 +28,6 @@ $(document).ready(() => {
       .text(val)
       .css({ top: "-10px" })
       .animate({ top: "11px", opacity: 1 });
-  });
-
-  // Event listener for shopping cart on topmenu
-  $("#cartParent").click(() => {
-    console.log(cart);
   });
 
   // Event listeners for left side filters

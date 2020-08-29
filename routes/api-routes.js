@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -18,9 +19,12 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
+    console.log(req.user);
     db.User.create({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname
     })
       .then(() => {
         res.redirect(307, "/api/login");
@@ -28,12 +32,6 @@ module.exports = function(app) {
       .catch(err => {
         res.status(401).json(err);
       });
-  });
-
-  // Route for logging user out
-  app.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
   });
 
   // Route for getting some data about our user to be used client side
@@ -50,6 +48,27 @@ module.exports = function(app) {
       });
     }
   });
+  isAuthenticated;
+  app.post("/api/orderItem", (req, res) => {
+    console.log(req.body);
+    console.log(req.user);
+    db.Order.findAll({
+      where: {
+        userid: req.user,
+        state: "pending"
+      }
+    }).then(dborder => {
+      console.log(dborder);
+      res;
+    });
+    // db.OrderItem.create({
+    //   quantity: 1,
+    //   orderid: 1,
+    //   BikeId: 2
+    // }).then(dbOrderItems => {
+    //   console.log(dbOrderItems);
+    // });
+  });
 
   app.get("/api/bikes", (req, res) => {
     res;
@@ -64,6 +83,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/bikes/filter/brand/:id", (req, res) => {
+    console.log(req.user);
     db.Bike.findAll({
       where: {
         brand: req.params.id

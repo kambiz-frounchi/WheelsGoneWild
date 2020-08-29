@@ -21,12 +21,17 @@
       {{!-- Top Menu --}}
       <div class="menu" id="menu">
       <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
-      <a href=""><i class="fas fa-sign-in-alt"></i> Login</a>
-      <a href=""><i class="fas fa-clipboard-list"></i> Sign Up</a>
-      <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
-      <a class="menuRight" href=""><i class="fas fa-sign-out-alt"></i> Logout</a>
-      <a id="cartParent" data-toggle="modal" data-target="#shoppingCart" class="menuRight" href=""><span class="cartCounter">0</span><i class="fas fa-shopping-cart"></i> Shopping Cart</a>
+      <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="/signup"><i class="fas fa-clipboard-list"></i> Sign Up</a>
+      <a href="/logout" class="menuRight"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a href="" data-toggle="modal" data-target="#shoppingCart" id="cartParent"  class="menuRight">
+        <span class="cartCounter">0</span><i class="fas fa-shopping-cart"></i> 
+        Shopping Cart
+      </a>
+
+      {{!--  --}}
       <a class="menuRight" href=""><i class="fas fa-user"></i> Profile</a>
+      <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
       </div>
 
       {{!-- Jumbotron --}}

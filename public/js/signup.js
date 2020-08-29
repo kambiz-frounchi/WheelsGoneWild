@@ -24,18 +24,22 @@ $(document).ready(() => {
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(email, password) {
+    console.log("signup.js");
     $.post("/api/signup", {
       email: email,
-      password: password
+      password: password,
+      firstname: "Jane",
+      lastname: "Doe"
     })
       .then(() => {
-        window.location.replace("/members");
+        window.location.replace("/login");
         // If there's an error, handle it by throwing up a bootstrap alert
       })
       .catch(handleLoginErr);
   }
 
   function handleLoginErr(err) {
+    console.log(err);
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
   }
