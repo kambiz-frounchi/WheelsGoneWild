@@ -48,7 +48,7 @@ module.exports = function(app) {
       });
     }
   });
-
+  isAuthenticated;
   app.post("/api/orderItem", (req, res) => {
     console.log(req.body);
     console.log(req.user);
@@ -59,6 +59,7 @@ module.exports = function(app) {
       }
     }).then(dborder => {
       console.log(dborder);
+      res;
     });
     // db.OrderItem.create({
     //   quantity: 1,
