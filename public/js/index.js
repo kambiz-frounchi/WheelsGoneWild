@@ -13,21 +13,20 @@ $(document).ready(() => {
     if (event.target.getAttribute("data-order") !== null) {
       cart.add(event.target.getAttribute("data-order"));
 
-      $.post("/api/orderItem", {
-        bikeid: 1
-      });
+      // $.post("/api/orderItem", {
+      //   bikeid: 1
+      // });
+      // Increment counter
+      $counter = $(".cartCounter");
+      val = parseInt($counter.text());
+      val++;
+      // Animation for badge counter
+      $counter
+        .css({ opacity: 0 })
+        .text(val)
+        .css({ top: "-10px" })
+        .animate({ top: "11px", opacity: 1 });
     }
-
-    // Increment counter
-    $counter = $(".cartCounter");
-    val = parseInt($counter.text());
-    val++;
-    // Animation for badge counter
-    $counter
-      .css({ opacity: 0 })
-      .text(val)
-      .css({ top: "-10px" })
-      .animate({ top: "11px", opacity: 1 });
   });
 
   // Event listeners for left side filters
