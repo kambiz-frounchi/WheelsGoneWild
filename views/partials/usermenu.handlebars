@@ -1,0 +1,60 @@
+<header>
+    {{!-- Top NavMenu --}}
+  <div class="menu" id="menu">
+      <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+      {{!-- <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a> --}}
+      {{!-- <a href="/signup"><i class="fas fa-clipboard-list"></i> Sign Up</a> --}}
+      <a href="/logout" class="menuRight"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a id="profile" class="menuRight" href=""><i class="fas fa-user"></i> Profile</a>
+      <a href="" data-toggle="modal" data-target="#shoppingCart" id="cartParent"  class="menuRight">
+        <span class="cartCounter">0</span><i class="fas fa-shopping-cart"></i> 
+        Shopping Cart
+      </a>
+      <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
+  </div>
+
+  {{!-- Jumbotron with logo --}}
+  <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+          <h1 class="display-4">Wheels Gone Wild</h1>
+      </div>
+  </div>
+</header>
+
+{{!-- Modal for shopping cart --}}
+<div class="modal fade" id="shoppingCart" tabindex="-1" role="dialog" aria-labelledby="cartModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{!-- <h4 class="modal-title" id="exampleModalLabel">Shopping Cart</h4> --}}
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Your cart</span>
+        <span class="badge badge-secondary badge-pill">3</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Product name</h6>
+              {{!-- <small class="text-muted">Brief description</small> --}}
+            </div>
+            <span class="text-muted">$12</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (CAD)</span>
+            <strong>$20</strong>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Save changes</button>
+        <button type="button" class="btn btn-primary">Proceed to Order</button>
+        <button type="button" class="btn btn-danger">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>

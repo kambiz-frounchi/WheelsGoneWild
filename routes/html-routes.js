@@ -59,7 +59,7 @@ module.exports = function(app) {
       const year = [...new Set(dbBike.map(element => element.dataValues.year))];
 
       const card = [...new Set(dbBike.map(element => element.dataValues))];
-
+      console.log(req.user);
       res.render("index", {
         category: category.sort(),
         categoryTotal: category.length,
@@ -74,7 +74,8 @@ module.exports = function(app) {
         year: year.sort(),
         yearTotal: year.length,
         searchTotal: dbBike.length,
-        card: card
+        card: card,
+        loggedIn: req.user
       });
     });
   });
