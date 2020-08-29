@@ -4,8 +4,7 @@ id PK
 Order 
 id PK
 totalprice
-bikeId FK
-userId FK
+cartId
 state (pending/shipping/delivered) -> enumerations ... 
 createdAt
 updatedAt 
@@ -13,20 +12,35 @@ updatedAt
 User
 id PK
 role (0/1) binary 0 -> normal (default), 1 = admin 
-first_name
-last_name
+firstname
+lastname
 email
 password
 
-Cart
-id PK 
-userId FK
+Order 
+id PK
+totalprice
+state (pending/ordered/shipping/delivered) -> enumerations ... 
+createdAt
+updatedAt
 bikeId FK
+userId FK
+
+Cart
+id PK
+userId FK
+
+CartItem
+id PK 
+CartId FK
+bikeId FK
+quantity 
 
 Inventory
 id PK
 bikeId FK
 quantity 
+
 
 
 
@@ -48,6 +62,21 @@ Cart page
 Normal user page (shows order history and user cart --> handlebar)
 Admin user page (shows options to add/remove/update bikes)
 
+2:
+
+Order 
+id PK
+totalprice
+state (pending/ordered/shipping/delivered) -> enumerations ... 
+createdAt
+updatedAt
+userId FK
+
+OrderItem
+id PK 
+orderId FK
+bikeId FK
+quantity
 
 
 
