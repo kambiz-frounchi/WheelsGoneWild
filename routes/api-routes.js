@@ -2,8 +2,6 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
-//const userAuthentication = new (require("../config/middleware/isAuthenticated"))();
-//const isAuthenticated = userAuthentication.isAuthenticated;
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -51,7 +49,7 @@ module.exports = function(app) {
     }
   });
 
-  app.post("/api/orderItem", async (req, res) => {
+  app.post("/api/orderItem", isAuthenticated, async (req, res) => {
     console.log(req.body);
     console.log(req.user);
     //find pending order under current user
@@ -102,7 +100,7 @@ module.exports = function(app) {
     res.status(200).json();
   });
 
-  app.post("/api/order", (req, res) => {
+  app.post("/api/order", isAuthenticated, (req, res) => {
     //find order and update its state to ordered
     db.Order.findOne({
       where: {
