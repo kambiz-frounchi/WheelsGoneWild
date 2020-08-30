@@ -30,11 +30,26 @@ module.exports = function(app) {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/cart", isAuthenticated, (req, res) => {
+    //res.sendFile(path.join(__dirname, "../public/members.html"));
+    //res.render();
+    res;
+  });
+
+  app.get("/orderhistory", isAuthenticated, (req, res) => {
+    // res.sendFile(path.join(__dirname, "../public/members.html"));
+    res;
+  });
+
+  app.get("/profile", isAuthenticated, (req, res) => {
     // res.sendFile(path.join(__dirname, "../public/members.html"));
     res;
   });
 
   app.get("/", (req, res) => {
+    loggedIn = false;
+    if (req.user) {
+      loggedIn = true;
+    }
     db.Bike.findAll({}).then(dbBike => {
       const category = [
         ...new Set(dbBike.map(element => element.dataValues.category))
@@ -75,7 +90,11 @@ module.exports = function(app) {
         yearTotal: year.length,
         searchTotal: dbBike.length,
         card: card,
+<<<<<<< HEAD
         loggedIn: req.user
+=======
+        loggedIn: loggedIn
+>>>>>>> master
       });
     });
   });
