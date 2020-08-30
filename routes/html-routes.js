@@ -42,14 +42,20 @@ module.exports = function(app) {
 
   app.get("/profile", isAuthenticated, (req, res) => {
     // res.sendFile(path.join(__dirname, "../public/members.html"));
-    res;
+    console.log("test");
+    if (!req.user) {
+      res.json(false);
+    } else {
+      const { email, firstname, lastname } = req.user;
+      res.render("profile", {
+        email: email,
+        firstname: firstname,
+        lastname: lastname,
+      });
+    }
   });
 
-  app.get("/", (req, res) => {
-    loggedIn = false;
-    if (req.user) {
-      loggedIn = true;
-    }
+  app.get("/", async (req, res) => {
     db.Bike.findAll({}).then(dbBike => {
       const category = [
         ...new Set(dbBike.map(element => element.dataValues.category))
@@ -90,11 +96,7 @@ module.exports = function(app) {
         yearTotal: year.length,
         searchTotal: dbBike.length,
         card: card,
-<<<<<<< HEAD
         loggedIn: req.user
-=======
-        loggedIn: loggedIn
->>>>>>> master
       });
     });
   });

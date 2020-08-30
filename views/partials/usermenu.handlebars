@@ -5,7 +5,7 @@
       {{!-- <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a> --}}
       {{!-- <a href="/signup"><i class="fas fa-clipboard-list"></i> Sign Up</a> --}}
       <a href="/logout" class="menuRight"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      <a id="profile" class="menuRight" href=""><i class="fas fa-user"></i> Profile</a>
+      <a href="/profile" id="profile" class="menuRight" href=""><i class="fas fa-user"></i> Profile</a>
       <a href="" data-toggle="modal" data-target="#shoppingCart" id="cartParent"  class="menuRight">
         <span class="cartCounter">0</span><i class="fas fa-shopping-cart"></i> 
         Shopping Cart
@@ -38,14 +38,14 @@
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
-              <h6 class="my-0">Product name</h6>
-              {{!-- <small class="text-muted">Brief description</small> --}}
+              <h6 class="my-0">{{name}}Product name--{{category}}</h6>
+              <small class="text-muted">{{brand}} {{year}}Brief description</small>
             </div>
-            <span class="text-muted">$12</span>
+            <span class="text-muted">${{price}}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (CAD)</span>
-            <strong>$20</strong>
+            <strong>$20 {{totalprice}}</strong>
           </li>
         </ul>
       </div>
