@@ -2,6 +2,8 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+//const userAuthentication = new (require("../config/middleware/isAuthenticated"))();
+//const isAuthenticated = userAuthentication.isAuthenticated;
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -48,26 +50,98 @@ module.exports = function(app) {
       });
     }
   });
-  isAuthenticated;
-  app.post("/api/orderItem", (req, res) => {
+
+  app.post("/api/orderItem", async (req, res) => {
     console.log(req.body);
     console.log(req.user);
-    db.Order.findAll({
+    //find pending order under current user
+    let order = await db.Order.findOne({
       where: {
-        userid: req.user,
+        UserId: req.user.id,
         state: "pending"
       }
-    }).then(dborder => {
-      console.log(dborder);
-      res;
     });
-    // db.OrderItem.create({
-    //   quantity: 1,
-    //   orderid: 1,
-    //   BikeId: 2
-    // }).then(dbOrderItems => {
-    //   console.log(dbOrderItems);
-    // });
+
+    console.log(order);
+
+    //need to get the bike to calculate the order totalprice
+    const bike = await db.Bike.findOne({
+      where: {
+        id: req.body.bikeId
+      }
+    });
+
+    console.log(bike);
+
+    //if pending order does not exist, create one
+    if (!order) {
+      order = await db.Order.create({
+        totalprice: bike.price,
+        state: "pending",
+        UserId: req.user.id
+      });
+    } else {
+      await db.Order.update(
+        {
+          totalprice: order.totalprice + bike.price
+        },
+        {
+          where: {
+            id: order.id
+          }
+        }
+      );
+    }
+
+    await db.OrderItem.create({
+      OrderId: order.id,
+      BikeId: req.body.bikeId,
+      quantity: req.body.quantity
+    });
+
+    res.status(200).json();
+  });
+
+  app.post("/api/order", (req, res) => {
+    //find order and update its state to ordered
+    db.Order.findOne({
+      where: {
+        UserId: req.user.id,
+        state: "pending"
+      }
+    }).then(order => {
+      db.Order.update(
+        {
+          state: "delivered"
+        },
+        {
+          where: {
+            id: order.id
+          }
+        }
+      ).then(() => {
+        res.status(200).json();
+      });
+    });
+  });
+
+  app.get("/api/view_cart", (req, res) => {
+    //req.user --> to find order
+    res;
+  });
+
+  app.get("/api/order_history", (req, res) => {
+    //req.user --> to find order
+    res;
+  });
+
+  app.get("/api/user", (req, res) => {
+    //req.user --> to find order
+    res;
+  });
+
+  app.get("/api/users/", (req, res) => {
+    res;
   });
 
   app.get("/api/bikes", (req, res) => {
@@ -135,17 +209,5 @@ module.exports = function(app) {
       console.log(dbBike);
       res.json(dbBike);
     });
-  });
-
-  app.get("/api/users/", (req, res) => {
-    res;
-  });
-
-  app.get("/api/users/:userid/orders", (req, res) => {
-    res;
-  });
-
-  app.get("/api/users/:userid/orders/:order_id", (req, res) => {
-    res;
   });
 };
