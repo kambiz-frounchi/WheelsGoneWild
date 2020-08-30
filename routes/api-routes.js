@@ -1,5 +1,6 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
+const { Op } = require("sequelize");
 const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
@@ -63,16 +64,12 @@ module.exports = function(app) {
       }
     });
 
-    console.log(order);
-
     //need to get the bike to calculate the order totalprice
     const bike = await db.Bike.findOne({
       where: {
         id: req.body.bikeId
       }
     });
-
-    console.log(bike);
 
     //if pending order does not exist, create one
     if (!order) {
@@ -94,11 +91,33 @@ module.exports = function(app) {
       );
     }
 
-    await db.OrderItem.create({
-      OrderId: order.id,
-      BikeId: req.body.bikeId,
-      quantity: req.body.quantity
+    const orderItem = await db.OrderItem.findOne({
+      where: {
+        BikeId: req.body.bikeId,
+        Orderid: order.id
+      }
     });
+
+    if (!orderItem) {
+      await db.OrderItem.create({
+        OrderId: order.id,
+        BikeId: req.body.bikeId,
+        quantity: req.body.quantity
+      });
+    } else {
+      console.log(`order id: ${order.id}`);
+      await db.OrderItem.update(
+        {
+          quantity: ++orderItem.quantity
+        },
+        {
+          where: {
+            BikeId: req.body.bikeId,
+            Orderid: order.id
+          }
+        }
+      );
+    }
 
     res.status(200).json();
   });
@@ -113,7 +132,7 @@ module.exports = function(app) {
     }).then(order => {
       db.Order.update(
         {
-          state: "delivered"
+          state: "ordered"
         },
         {
           where: {
@@ -121,19 +140,62 @@ module.exports = function(app) {
           }
         }
       ).then(() => {
-        res.status(200).json();
+        res.status(200).end();
       });
     });
   });
 
-  app.get("/api/view_cart", (req, res) => {
-    //req.user --> to find order
-    res;
+  app.get("/api/orderItems", isAuthenticated, async (req, res) => {
+    //find pending order under current user
+    const order = await db.Order.findOne({
+      where: {
+        UserId: req.user.id,
+        state: "pending"
+      }
+    });
+
+    if (order) {
+      const orderItems = await db.OrderItem.findAll({
+        where: {
+          OrderId: order.id
+        }
+      });
+
+      //TODO: render cart page via handlebars
+      if (orderItems) {
+        res.json(orderItems);
+      }
+    }
+
+    res.status(200).end();
   });
 
-  app.get("/api/order_history", (req, res) => {
-    //req.user --> to find order
-    res;
+  app.get("/api/orders", isAuthenticated, async (req, res) => {
+    //find non-pending orders under current user
+    const nonPendingOrders = await db.Order.findAll({
+      where: {
+        state: {
+          [Op.not]: "pending"
+        },
+        UserId: req.user.id
+      }
+    });
+
+    if (nonPendingOrders) {
+      nonPendingOrders.forEach(async order => {
+        const orderItems = await db.OrderItem.findAll({
+          where: {
+            OrderId: order.id
+          }
+        });
+        if (orderItems) {
+          //TODO: render order history page via handlebars
+          console.log(orderItems);
+        }
+      });
+    }
+
+    res.status(200).end();
   });
 
   app.get("/api/user", (req, res) => {
