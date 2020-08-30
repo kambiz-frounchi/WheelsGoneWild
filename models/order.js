@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     "Order",
     {
       totalprice: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false
       },
       state: {
