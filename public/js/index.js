@@ -1,6 +1,14 @@
 $(document).ready(() => {
   const cart = new Set();
 
+  // Profile Menu
+  $("#profile").click(() => {
+    event.preventDefault();
+    $.get("/api/user_data").then(data => {
+      console.log(data);
+    });
+  });
+
   // Event listener for shopping cart on menubar
   $("#cartParent").click(() => {
     event.preventDefault();
