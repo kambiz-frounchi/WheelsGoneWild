@@ -2,12 +2,12 @@ $(document).ready(() => {
   const cart = new Set();
 
   // Profile Menu
-  $("#profile").click(() => {
-    event.preventDefault();
-    $.get("/api/user_data").then(data => {
-      console.log(data);
-    });
-  });
+  // $("#profile").click(() => {
+    // event.preventDefault();
+    // $.get("/api/user_data").then(data => {
+    //   console.log(data);
+    // });
+  // });
 
   // Event listener for shopping cart on menubar
   $("#cartParent").click(() => {
@@ -20,10 +20,10 @@ $(document).ready(() => {
     console.log(`bike id is ${event.target.getAttribute("data-order")}`);
     if (event.target.getAttribute("data-order") !== null) {
       cart.add(event.target.getAttribute("data-order"));
+      $.post("/api/orderItem", {
+        bikeId: event.target.getAttribute("data-order")
+      });
 
-      // $.post("/api/orderItem", {
-      //   bikeid: 1
-      // });
       // Increment counter
       $counter = $(".cartCounter");
       val = parseInt($counter.text());
