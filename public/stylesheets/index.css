@@ -149,7 +149,7 @@ html, body {
   pointer-events: none;
 }
 
-#brand, #colour, #frameSize, #frameMaterial, #year{
+#category #brand, #colour, #frameSize, #frameMaterial, #year{
   max-height: 350px;
   overflow: auto;
 }

@@ -4,7 +4,7 @@
     <h4 data-toggle="collapse" data-target="#category">Category <span id="test" class="badge badge-pill badge-dark">{{categoryTotal}}</span></h4>
     <div id="category" class="list-group collapse show" data-toggle="items" role="tablist">
         {{#each category}}
-            <li id="{{this}}" href="/?category={{this}}" class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
+            <li id="{{this}}" href="/?category={{this}}" class="list-group-item list-group-item-action text-wrap" data-toggle="list" role="tab" style="overflow: auto">{{this}}</li>
         {{/each}}
     </div>
 
@@ -12,7 +12,7 @@
     <h4 data-toggle="collapse" data-target="#brand">Brand <span class="badge badge-pill badge-dark">{{brandTotal}}</span></h4>
     <div id="brand" class="list-group collapse show" data-toggle="items" role="tablist">
         {{#each brand}}
-            <li id="{{this}}" class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
+            <li id="{{this}}" class="list-group-item list-group-item-action text-wrap" data-toggle="list" role="tab" style="overflow: auto">{{this}}</li>
         {{/each}}
     </div>
     
@@ -20,7 +20,7 @@
     <h4 data-toggle="collapse" data-target="#colour">Colour <span class="badge badge-pill badge-dark">{{colourTotal}}</span></h4>
     <div id="colour" class="list-group collapse show" data-toggle="items" role="tablist">
         {{#each colour}}
-            <li class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
+            <li class="list-group-item list-group-item-action" data-toggle="list" role="tab" style="overflow: auto">{{this}}</li>
         {{/each}}
     </div>
 
