@@ -36,7 +36,7 @@ module.exports = function(app) {
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
+  app.get("/api/user_data", isAuthenticated, (req, res) => {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -45,8 +45,11 @@ module.exports = function(app) {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        id: req.user.id
+        id: req.user.id,
+        firstname: req.user.firstname,
+        lastname: req.user.lastname
       });
+      // res.json(true);
     }
   });
 
@@ -155,11 +158,13 @@ module.exports = function(app) {
       const orderItems = await db.OrderItem.findAll({
         where: {
           OrderId: order.id
-        }
+        },
+        include: [db.Bike, db.Order]
       });
 
       //TODO: render cart page via handlebars
       if (orderItems) {
+        // console.log(orderItems);
         res.json(orderItems);
       }
     }

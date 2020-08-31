@@ -1,9 +1,16 @@
 $(document).ready(() => {
   const cart = new Set();
 
+  // hash for shoppingcart
+  if (window.location.hash === "#cart") {
+    // console.log("test");
+    $("#shoppingCart").modal("show");
+  }
+
   // Event listener for shopping cart on menubar
   $("#cartParent").click(() => {
     event.preventDefault();
+    location.replace("/cart");
   });
 
   // Event listener for when a bike's order is clicked
@@ -12,22 +19,58 @@ $(document).ready(() => {
     console.log(`bike id is ${event.target.getAttribute("data-order")}`);
     if (event.target.getAttribute("data-order") !== null) {
       cart.add(event.target.getAttribute("data-order"));
-
       $.post("/api/orderItem", {
-        bikeid: 1
+        bikeId: event.target.getAttribute("data-order")
       });
-    }
 
-    // Increment counter
-    $counter = $(".cartCounter");
-    val = parseInt($counter.text());
-    val++;
-    // Animation for badge counter
-    $counter
-      .css({ opacity: 0 })
-      .text(val)
-      .css({ top: "-10px" })
-      .animate({ top: "11px", opacity: 1 });
+      // Increment counter
+      $counter = $(".cartCounter");
+      val = parseInt($counter.text());
+      val++;
+      // Animation for badge counter
+      $counter
+        .css({ opacity: 0 })
+        .text(val)
+        .css({ top: "-10px" })
+        .animate({ top: "11px", opacity: 1 });
+    }
+  });
+
+  // Event listener when increase quantity button is called
+  $(".incOrder").click(() => {
+    event.preventDefault();
+    console.log(event.target.hash);
+    $.post("/api/orderItem", {
+      bikeId: event.target.getAttribute("data-order")
+    });
+    $("#shoppingCart").empty();
+    location.replace("/cart");
+  });
+
+  // Event listener when decrease quantity button is called
+  $(".decOrder").click(() => {
+    event.preventDefault();
+    console.log(event.target.hash);
+    $("#shoppingCart").empty();
+    location.replace("/cart");
+  });
+
+  // Event listener for proceed to order button on cart modal
+  $("#orderProceed").click(() => {
+    console.log("proceed to order");
+    $.post("/api/order");
+    $("#orderProceed").text("Order Placed");
+    $("#orderEmpty").hide();
+  });
+
+  // Event listener for empty cart button on cart modal
+  $("#orderEmpty").click(() => {
+    console.log("Empty order");
+  });
+
+  // Event listener for close button on cart modal
+  $("#orderClose").click(() => {
+    location.replace("/");
   });
 
   // Event listeners for left side filters

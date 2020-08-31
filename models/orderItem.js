@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         defaultValue: 1
       }
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 
   OrderItem.associate = function(models) {

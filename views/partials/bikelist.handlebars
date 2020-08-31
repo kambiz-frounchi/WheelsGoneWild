@@ -1,0 +1,43 @@
+{{!-- Right side bike list rendering --}}
+<div class="col-10">
+  {{!-- Results and breadcrumbs --}}
+  <div class="row">
+  <h4 id="searchTotal">{{searchTotal}} Found Results</h4>
+
+  {{!-- Dropdown menu --}}
+  <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Most Popular
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Most Popular</a>
+          <a class="dropdown-item" href="#">Alphabetical</a>
+          <a class="dropdown-item" href="#">Price: Low to High</a>
+          <a class="dropdown-item" href="#">Price: High to Low</a>
+      </div>
+  </div>
+  </div>
+
+  {{!-- Bike list based on filters --}}
+  <div id="bikeList" class="row">
+      {{#each card}}
+          <div class="card mx-auto">
+              <img class="card-img-top" src="/images/{{id}}.jpg" alt="Card image cap">
+              <div class="card-body {{category}}">
+              <h5 class="card-title">{{name}}</h5>
+                  <div class="row">
+                  <div class="col-5">
+                  <p class="card-text cardPrice"><i class="fas fa-dollar-sign"> {{price}}</i> </p>
+                  </div>
+                  <div class="col">
+                  <p class="card-text cardYear">{{brand}} {{year}}</p>
+                  </div>
+              </div>
+              <div class="card-footer">
+                  <button type="button" data-order="{{id}}" class="btn btn-secondary cardCart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+              </div>
+              </div>
+          </div>
+      {{/each}}
+  </div>
+</div>

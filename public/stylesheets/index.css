@@ -83,6 +83,16 @@ html, body {
   }
 }
 
+/* Cart Modal */
+.cartBtnGroup {
+  width: 30px;
+  margin-left: 15px;
+}
+
+.cartItem {
+  padding-left: 0;
+}
+
 /* Content after jumbotron */
 .container-fluid {
   padding-left: 50px;
@@ -149,7 +159,11 @@ html, body {
   pointer-events: none;
 }
 
-#brand, #colour, #frameSize, #frameMaterial, #year{
+.incOrder *, .decOrder * {
+  pointer-events: none;
+}
+
+#category #brand, #colour, #frameSize, #frameMaterial, #year{
   max-height: 350px;
   overflow: auto;
 }
