@@ -83,6 +83,16 @@ html, body {
   }
 }
 
+/* Cart Modal */
+.cartBtnGroup {
+  width: 30px;
+  margin-left: 15px;
+}
+
+.cartItem {
+  padding-left: 0;
+}
+
 /* Content after jumbotron */
 .container-fluid {
   padding-left: 50px;
@@ -146,6 +156,10 @@ html, body {
 }
 
 .cardCart * {
+  pointer-events: none;
+}
+
+.incOrder *, .decOrder * {
   pointer-events: none;
 }
 
