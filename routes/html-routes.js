@@ -45,10 +45,18 @@ module.exports = function(app) {
     res;
   });
 
-  app.get("/", (req, res) => {
-    loggedIn = false;
+  app.get("/", async (req, res) => {
     if (req.user) {
-      loggedIn = true;
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        res.render("admin", {});
+        return;
+      }
     }
     db.Bike.findAll({}).then(dbBike => {
       const category = [
@@ -89,8 +97,7 @@ module.exports = function(app) {
         year: year.sort(),
         yearTotal: year.length,
         searchTotal: dbBike.length,
-        card: card,
-        loggedIn: loggedIn
+        card: card
       });
     });
   });

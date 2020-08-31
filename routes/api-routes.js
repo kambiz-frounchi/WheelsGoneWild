@@ -232,7 +232,6 @@ module.exports = function(app) {
       where: {
         category: req.params.id
       }
-      // limit: 10
     }).then(dbBike => {
       console.log(dbBike);
       res.json(dbBike);
@@ -252,10 +251,9 @@ module.exports = function(app) {
       where: {
         framematerial: req.params.id
       }
-      // limit: 10
-    }).then(dbBike => {
-      console.log(dbBike);
-      res.json(dbBike);
+    }).then(bikes => {
+      console.log(bikes);
+      res.json(bikes);
     });
   });
 
@@ -264,10 +262,66 @@ module.exports = function(app) {
       where: {
         year: req.params.id
       }
-      // limit: 10
-    }).then(dbBike => {
-      console.log(dbBike);
-      res.json(dbBike);
+    }).then(bikes => {
+      console.log(bikes);
+      res.json(bikes);
     });
+  });
+
+  //admin routes
+  app.post("/api/bikes", isAuthenticated, async (req, res) => {
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        db.Bike.create(req.body.bike).then(dbBike => {
+          res.json(dbBike);
+        });
+      }
+    }
+  });
+
+  app.delete("/api/bikes/:id", isAuthenticated, async (req, res) => {
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        db.Bike.destroy({
+          where: {
+            id: req.params.id
+          }
+        }).then(dbBike => {
+          res.json(dbBike);
+        });
+      }
+    }
+  });
+
+  app.put("/api/bikes", isAuthenticated, async (req, res) => {
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        db.Bike.update(req.body.bike, {
+          where: {
+            id: req.body.bike.id
+          }
+        }).then(dbBike => {
+          res.json(dbBike);
+        });
+      }
+    }
   });
 };
