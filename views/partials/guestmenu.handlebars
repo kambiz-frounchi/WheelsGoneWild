@@ -1,25 +1,16 @@
-<header>
-  {{!-- Top NavMenu --}}
-  <div class="menu" id="menu">
-        <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
-        <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="/signup"><i class="fas fa-clipboard-list"></i> Sign Up</a>
-        {{!-- <a href="/logout" class="menuRight"><i class="fas fa-sign-out-alt"></i> Logout</a> --}}
-        <a href="" data-toggle="modal" data-target="#shoppingCart" id="cartParent"  class="menuRight">
-          <span class="cartCounter">0</span><i class="fas fa-shopping-cart"></i> 
-          Shopping Cart
-        </a>
-        {{!-- <a class="menuRight" href=""><i class="fas fa-user"></i> Profile</a> --}}
-        <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
-  </div>
-
-{{!-- Jumbotron with logo --}}
-  <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-          <h1 class="display-4">Wheels Gone Wild</h1>
-      </div>
-  </div>
-</header>
+{{!-- Top NavMenu --}}
+<div class="menu" id="menu">
+      <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+      <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="/signup"><i class="fas fa-clipboard-list"></i> Sign Up</a>
+      {{!-- <a href="/logout" class="menuRight"><i class="fas fa-sign-out-alt"></i> Logout</a> --}}
+      <a href="" data-toggle="modal" data-target="#shoppingCart" id="cartParent"  class="menuRight">
+        <span class="cartCounter">0</span><i class="fas fa-shopping-cart"></i> 
+        Shopping Cart
+      </a>
+      {{!-- <a class="menuRight" href=""><i class="fas fa-user"></i> Profile</a> --}}
+      <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
+</div>
 
 {{!-- Modal for shopping cart --}}
 <div class="modal fade" id="shoppingCart" tabindex="-1" role="dialog" aria-labelledby="cartModal" aria-hidden="true">
@@ -38,7 +29,7 @@
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
-              <h6 class="my-0">Product name</h6>
+              <h6 class="my-0">Product name TESTING GUEST MENU</h6>
               {{!-- <small class="text-muted">Brief description</small> --}}
             </div>
             <span class="text-muted">$12</span>

@@ -1,8 +1,14 @@
+<header>
 {{#if loggedIn}}
     {{> usermenu}}
+    {{> shoppingcart}}
 {{else}}
     {{> guestmenu}}
 {{/if}}
+
+{{> jumbotron}}
+
+</header>
 
 <div class="container-fluid">
     <div class="row">
