@@ -11,8 +11,8 @@ module.exports = function(sequelize, DataTypes) {
         defaultValue: "pending"
       },
       totalquantity: {
-        type: DataTypes.Integer,
-        allowNull: false
+        type: DataTypes.INTEGER,
+        allowNull: true
       }
     },
     { timestamps: true }
