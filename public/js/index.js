@@ -3,10 +3,10 @@ $(document).ready(() => {
 
   // Profile Menu
   // $("#profile").click(() => {
-    // event.preventDefault();
-    // $.get("/api/user_data").then(data => {
-    //   console.log(data);
-    // });
+  // event.preventDefault();
+  // $.get("/api/user_data").then(data => {
+  //   console.log(data);
+  // });
   // });
 
   // Event listener for shopping cart on menubar
@@ -15,7 +15,7 @@ $(document).ready(() => {
   });
 
   // Event listener for when a bike's order is clicked
-  $("#bikeList").click(() => {
+  $("#bikeList, .incOrder").click(() => {
     event.stopPropagation();
     console.log(`bike id is ${event.target.getAttribute("data-order")}`);
     if (event.target.getAttribute("data-order") !== null) {
@@ -36,6 +36,16 @@ $(document).ready(() => {
         .animate({ top: "11px", opacity: 1 });
     }
   });
+
+  $(".decOrder").click(() => {
+    console.log(`bike id is ${event.target.getAttribute("data-order")}`);
+    $("#shoppingCart").modal("show");
+  });
+
+  // Get user's shopping cart on page load and populate menu modal
+  const menuShoppingCart = () => {
+    // $.get("/api/orderItems").then(data => {console.log(data)});
+  };
 
   // Event listeners for left side filters
   $("#category li").click(() => {
@@ -116,4 +126,6 @@ $(document).ready(() => {
     option.value = item;
     list.appendChild(option);
   });
+
+  menuShoppingCart();
 });
