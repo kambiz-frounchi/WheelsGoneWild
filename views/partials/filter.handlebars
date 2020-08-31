@@ -1,0 +1,60 @@
+{{!-- Left side filters --}}
+<div class="col-2">
+    {{!-- Category --}}
+    <h4 data-toggle="collapse" data-target="#category">Category <span id="test" class="badge badge-pill badge-dark">{{categoryTotal}}</span></h4>
+    <div id="category" class="list-group collapse show" data-toggle="items" role="tablist">
+        {{#each category}}
+            <li id="{{this}}" href="/?category={{this}}" class="list-group-item list-group-item-action text-wrap" data-toggle="list" role="tab" style="overflow: auto">{{this}}</li>
+        {{/each}}
+    </div>
+
+    {{!-- Brand --}}
+    <h4 data-toggle="collapse" data-target="#brand">Brand <span class="badge badge-pill badge-dark">{{brandTotal}}</span></h4>
+    <div id="brand" class="list-group collapse show" data-toggle="items" role="tablist">
+        {{#each brand}}
+            <li id="{{this}}" class="list-group-item list-group-item-action text-wrap" data-toggle="list" role="tab" style="overflow: auto">{{this}}</li>
+        {{/each}}
+    </div>
+    
+    {{!-- Colour --}}
+    <h4 data-toggle="collapse" data-target="#colour">Colour <span class="badge badge-pill badge-dark">{{colourTotal}}</span></h4>
+    <div id="colour" class="list-group collapse show" data-toggle="items" role="tablist">
+        {{#each colour}}
+            <li class="list-group-item list-group-item-action" data-toggle="list" role="tab" style="overflow: auto">{{this}}</li>
+        {{/each}}
+    </div>
+
+    {{!-- Price --}}
+    <h4 data-toggle="collapse" data-target="#price">Price (CAD)</h4>
+    <div id="price">
+    <!-- Synced slider and textbox to input number of characters -->
+    <input type="range" min="364" max="2000" value="364" id="lengthRange" for="lengthNumber">
+    <input type="number" min="364" max="2000" value="364" id="lengthNumber" list="defaultNumbers" required>
+    <span class="validity"></span>
+    <datalist id="defaultNumbers"></datalist>
+    </div>
+
+    {{!-- Frame Size --}}
+    <h4 id="frameSizeHead" data-toggle="collapse" data-target="#frameSize">Frame Size <span class="badge badge-pill badge-dark">{{frameSizeTotal}}</span></h4>
+    <div id="frameSize" class="list-group collapse show" data-toggle="items" role="tablist">
+        {{#each frameSize}}
+            <li class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{this}}</li>
+        {{/each}}
+    </div>
+    
+    {{!-- Frame Material --}}
+    <h4 data-toggle="collapse" data-target="#frameMaterial">Frame Material<span class="badge badge-pill badge-dark">{{frameMaterialTotal}}</span></h4>
+    <div id="frameMaterial" class="list-group collapse show" data-toggle="items" role="tablist">
+        {{#each frameMaterial}}
+            <li id="{{this}}" class="list-group-item" data-toggle="list" role="tab">{{this}}</li>
+        {{/each}}
+    </div>
+    
+    {{!-- Year --}}
+    <h4 data-toggle="collapse" data-target="#year">Year <span class="badge badge-pill badge-dark">{{yearTotal}}</span></h4>
+    <div id="year" class="list-group collapse show" data-toggle="items" role="tablist">
+        {{#each year}}
+            <li id="{{this}}" class="list-group-item" data-toggle="list" role="tab">{{this}}</li>
+        {{/each}}
+    </div>
+</div>

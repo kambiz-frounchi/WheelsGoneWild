@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
     lastname: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    phone: {
+      type: DataTypes.Integer,
+      allowNull: true
     }
   });
 

@@ -9,9 +9,13 @@ module.exports = function(sequelize, DataTypes) {
       state: {
         type: DataTypes.ENUM("pending", "ordered", "shipping", "delivered"),
         defaultValue: "pending"
+      },
+      totalquantity: {
+        type: DataTypes.Integer,
+        allowNull: false
       }
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 
   Order.associate = function(models) {
