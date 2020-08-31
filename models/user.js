@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     phone: {
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   });
