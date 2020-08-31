@@ -158,11 +158,13 @@ module.exports = function(app) {
       const orderItems = await db.OrderItem.findAll({
         where: {
           OrderId: order.id
-        }
+        },
+        include: [db.Bike, db.Order]
       });
 
       //TODO: render cart page via handlebars
       if (orderItems) {
+        // console.log(orderItems);
         res.json(orderItems);
       }
     }

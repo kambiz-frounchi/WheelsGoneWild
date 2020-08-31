@@ -50,54 +50,78 @@ module.exports = function(app) {
       res.render("profile", {
         email: email,
         firstname: firstname,
-        lastname: lastname,
+        lastname: lastname
       });
     }
   });
 
   app.get("/", async (req, res) => {
-    db.Bike.findAll({}).then(dbBike => {
-      const category = [
-        ...new Set(dbBike.map(element => element.dataValues.category))
-      ];
+    const dbBike = await db.Bike.findAll({});
+    const category = [
+      ...new Set(dbBike.map(element => element.dataValues.category))
+    ];
 
-      const brand = [
-        ...new Set(dbBike.map(element => element.dataValues.brand))
-      ];
+    const brand = [...new Set(dbBike.map(element => element.dataValues.brand))];
 
-      const colour = [
-        ...new Set(dbBike.map(element => element.dataValues.colour))
-      ];
+    const colour = [
+      ...new Set(dbBike.map(element => element.dataValues.colour))
+    ];
 
-      const frameSize = [
-        ...new Set(dbBike.map(element => element.dataValues.framesize))
-      ];
+    const frameSize = [
+      ...new Set(dbBike.map(element => element.dataValues.framesize))
+    ];
 
-      const frameMaterial = [
-        ...new Set(dbBike.map(element => element.dataValues.framematerial))
-      ];
+    const frameMaterial = [
+      ...new Set(dbBike.map(element => element.dataValues.framematerial))
+    ];
 
-      const year = [...new Set(dbBike.map(element => element.dataValues.year))];
+    const year = [...new Set(dbBike.map(element => element.dataValues.year))];
 
-      const card = [...new Set(dbBike.map(element => element.dataValues))];
-      console.log(req.user);
-      res.render("index", {
-        category: category.sort(),
-        categoryTotal: category.length,
-        brand: brand.sort(),
-        brandTotal: brand.length,
-        colour: colour.sort(),
-        colourTotal: colour.length,
-        frameSize: frameSize.sort(),
-        frameSizeTotal: frameSize.length,
-        frameMaterial: frameMaterial.sort(),
-        frameMaterialTotal: frameMaterial.length,
-        year: year.sort(),
-        yearTotal: year.length,
-        searchTotal: dbBike.length,
-        card: card,
-        loggedIn: req.user
+    const card = [...new Set(dbBike.map(element => element.dataValues))];
+    console.log(req.user);
+
+    let cart;
+    if (req.user) {
+      cart = await db.OrderItem.findAll({
+        // raw: true,
+        include: [
+          {
+            model: db.Order,
+            where: {
+              UserId: req.user.id,
+              state: "pending"
+            },
+            attributes: {
+              exclude: ["UserId"]
+            }
+          },
+          {
+            model: db.Bike
+          }
+        ]
       });
+      // console.log(cart.length);
+    } else {
+      cart = null;
+    }
+    // console.log(cart);
+    res.render("index", {
+      category: category.sort(),
+      categoryTotal: category.length,
+      brand: brand.sort(),
+      brandTotal: brand.length,
+      colour: colour.sort(),
+      colourTotal: colour.length,
+      frameSize: frameSize.sort(),
+      frameSizeTotal: frameSize.length,
+      frameMaterial: frameMaterial.sort(),
+      frameMaterialTotal: frameMaterial.length,
+      year: year.sort(),
+      yearTotal: year.length,
+      searchTotal: dbBike.length,
+      card: card,
+      loggedIn: req.user,
+      cart: cart
     });
   });
 };
