@@ -43,11 +43,12 @@ module.exports = function(app) {
     if (!req.user) {
       res.json(false);
     } else {
-      const { email, firstname, lastname } = req.user;
+      const { email, firstname, lastname, phone } = req.user;
       res.render("profile", {
         email: email,
         firstname: firstname,
-        lastname: lastname
+        lastname: lastname,
+        phone: phone
       });
     }
   });
