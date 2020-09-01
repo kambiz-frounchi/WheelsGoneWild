@@ -81,7 +81,8 @@ module.exports = function(app) {
     } else {
       await db.Order.update(
         {
-          totalprice: order.totalprice + bike.price
+          totalprice: order.totalprice + bike.price,
+          totalquantity: Sequelize.literal("totalquantity + 1")
         },
         {
           where: {
@@ -126,7 +127,9 @@ module.exports = function(app) {
   app.put("/api/orderItem", isAuthenticated, async (req, res) => {
     console.log(req.body);
     await db.OrderItem.update(
-      { quantity: Sequelize.literal("quantity - 1") },
+      {
+        quantity: Sequelize.literal("quantity - 1")
+      },
       {
         where: {
           bikeId: req.body.bikeId,
@@ -145,19 +148,37 @@ module.exports = function(app) {
           }
         ]
       }
-    ).then(dbOrderitems => {
-      console.log(dbOrderitems);
-      db.OrderItem.destroy({
+    );
+    const { price } = await db.Bike.findOne({
+      raw: true,
+      where: {
+        id: req.body.bikeId
+      }
+    });
+    // console.log(price);
+    await db.Order.update(
+      {
+        totalquantity: Sequelize.literal("totalquantity - 1"),
+        totalprice: Sequelize.literal(`totalprice - ${price}`)
+      },
+      {
         where: {
-          quantity: 0
+          state: "pending"
         }
-      }).then(item => {
-        console.log(item);
-        res.status(200).json(true);
-      });
+      }
+    );
+
+    await db.OrderItem.destroy({
+      where: {
+        quantity: 0
+      }
+    }).then(item => {
+      console.log(item);
+      res.status(200).json(true);
     });
   });
 
+  // Route to confirm pending order to ordered
   app.post("/api/order", isAuthenticated, (req, res) => {
     //find order and update its state to ordered
     db.Order.findOne({

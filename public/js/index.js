@@ -56,7 +56,7 @@ $(document).ready(() => {
     $.ajax({
       url: "/api/orderItem",
       type: "Put",
-      data: {bikeId: event.target.getAttribute("data-order")}
+      data: { bikeId: event.target.getAttribute("data-order") }
     }).then(data => {
       console.log(data);
       $("#shoppingCart").empty();
@@ -101,7 +101,7 @@ $(document).ready(() => {
   });
 
   renderPage = data => {
-    console.log(data);
+    // console.log(data);
     $("#bikeList").empty();
     const items = data.map(element => {
       const { id, category, name, brand, year, price } = element;

@@ -98,7 +98,7 @@ module.exports = function(app) {
           }
         ]
       });
-      // console.log(cart.length);
+      // console.log(cart[0].dataValues);
     } else {
       cart = null;
     }
