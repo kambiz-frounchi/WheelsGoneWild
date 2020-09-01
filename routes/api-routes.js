@@ -1,6 +1,6 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
@@ -55,7 +55,7 @@ module.exports = function(app) {
 
   app.post("/api/orderItem", isAuthenticated, async (req, res) => {
     console.log(req.body);
-    console.log(req.user);
+    // console.log(req.user);
     //find pending order under current user
     let order = await db.Order.findOne({
       where: {
@@ -119,7 +119,43 @@ module.exports = function(app) {
       );
     }
 
-    res.status(200).json();
+    res.status(200).json(true);
+  });
+
+  // Request to decrease quantity of orderitem
+  app.put("/api/orderItem", isAuthenticated, async (req, res) => {
+    console.log(req.body);
+    await db.OrderItem.update(
+      { quantity: Sequelize.literal("quantity - 1") },
+      {
+        where: {
+          bikeId: req.body.bikeId,
+          quantity: {
+            [Op.gt]: 0
+          }
+        },
+        attributes: [db.OrderItem.quantity],
+        include: [
+          {
+            model: db.Order,
+            where: {
+              UserId: req.user.id,
+              state: "pending"
+            }
+          }
+        ]
+      }
+    ).then(dbOrderitems => {
+      console.log(dbOrderitems);
+      db.OrderItem.destroy({
+        where: {
+          quantity: 0
+        }
+      }).then(item => {
+        console.log(item);
+        res.status(200).json(true);
+      });
+    });
   });
 
   app.post("/api/order", isAuthenticated, (req, res) => {
@@ -222,7 +258,6 @@ module.exports = function(app) {
   });
 
   app.get("/api/bikes/filter/brand/:id", (req, res) => {
-    console.log(req.user);
     db.Bike.findAll({
       where: {
         brand: req.params.id

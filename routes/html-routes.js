@@ -76,7 +76,7 @@ module.exports = function(app) {
     const year = [...new Set(dbBike.map(element => element.dataValues.year))];
 
     const card = [...new Set(dbBike.map(element => element.dataValues))];
-    console.log(req.user);
+    // console.log(req.user);
 
     let cart;
     if (req.user) {
