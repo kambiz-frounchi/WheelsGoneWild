@@ -1,20 +1,15 @@
-function showCreateBikeForm() {
-    
-}
-
 $(document).ready(() => {
+  $(".create-bike-form").hide();
   $("#admin-menu").on("click", event => {
     event.preventDefault();
     const operation = event.target.getAttribute("data-admin-item");
     if (operation === "create-bike") {
-      $("#admin-menu").remove();
-      showCreateBikeForm();
+      $(".create-bike-form").show();
+      //showCreateBikeForm();
     } else if (operation === "update-bike") {
-      $("#admin-menu").remove();
-      showUpdateBikeForm();
+      //showUpdateBikeForm();
     } else if (operation === "delete-bike") {
-      $("#admin-menu").remove();
-      showDeleteBikeForm();
+      //showDeleteBikeForm();
     }
   });
 });

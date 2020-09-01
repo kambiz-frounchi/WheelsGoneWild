@@ -1,3 +1,4 @@
+<!--
 <div class="container-fluid">
     <div class="dropdown" id="admin-menu">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -10,3 +11,73 @@
         </div>
     </div>
 </div>
+-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="dropdown" id="admin-menu">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose operation
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" data-admin-item="create-bike" href="#">Create Bike</a>
+                    <a class="dropdown-item" data-admin-item="update-bike" href="#">Update Bike</a>
+                    <a class="dropdown-item" data-admin-item="delete-bike" href="#">Delete Bike</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="needs-validation create-bike-form" novalidate>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                Valid name is required.
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="brand">Brand</label>
+                <input type="text" class="form-control" id="brand" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                Valid brand is required.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="colour">Colour</label>
+                <input type="text" class="form-control" id="colour" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                Valid colour is required.
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="framesize">Frame size</label>
+                <input type="text" class="form-control" id="framesize" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                Valid frame size is required.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="category">Category</label>
+                <select class="custom-select d-block w-100" id="category" required>
+                    <option value="">Choose...</option>
+                    {{#each categories}}
+                        <option>{{this}}</option>      
+                    {{/each}}
+                
+                </select>
+                <div class="invalid-feedback">
+                Please select a valid category.
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>            
+            </div>        
+        </div>
+    </form>
+</div>
+

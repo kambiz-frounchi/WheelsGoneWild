@@ -54,6 +54,26 @@ module.exports = function(app) {
   });
 
   app.get("/", async (req, res) => {
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        const dbBikes = await db.Bike.findAll({});
+        const categories = [
+          ...new Set(dbBikes.map(element => element.dataValues.category))
+        ];
+
+        res.render("admin", {
+          categories: categories
+        });
+        return;
+      }
+    }
+
     const dbBike = await db.Bike.findAll({});
     const category = [
       ...new Set(dbBike.map(element => element.dataValues.category))
