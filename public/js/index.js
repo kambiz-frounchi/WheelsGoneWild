@@ -42,17 +42,26 @@ $(document).ready(() => {
     console.log(event.target.hash);
     $.post("/api/orderItem", {
       bikeId: event.target.getAttribute("data-order")
+    }).then(data => {
+      console.log(data);
+      $("#shoppingCart").empty();
+      location.replace("/cart");
     });
-    $("#shoppingCart").empty();
-    location.replace("/cart");
   });
 
   // Event listener when decrease quantity button is called
   $(".decOrder").click(() => {
     event.preventDefault();
     console.log(event.target.hash);
-    $("#shoppingCart").empty();
-    location.replace("/cart");
+    $.ajax({
+      url: "/api/orderItem",
+      type: "Put",
+      data: {bikeId: event.target.getAttribute("data-order")}
+    }).then(data => {
+      console.log(data);
+      $("#shoppingCart").empty();
+      location.replace("/cart");
+    });
   });
 
   // Event listener for proceed to order button on cart modal
