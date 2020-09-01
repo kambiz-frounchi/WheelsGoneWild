@@ -78,7 +78,7 @@ module.exports = function(app) {
     const card = [...new Set(dbBike.map(element => element.dataValues))];
     // console.log(req.user);
 
-    let cart;
+    let cart, cartCounter;
     if (req.user) {
       cart = await db.OrderItem.findAll({
         // raw: true,
@@ -98,9 +98,13 @@ module.exports = function(app) {
           }
         ]
       });
+      if (cart) {
+        cartCounter = cart[0].dataValues.Order.dataValues.totalquantity;
+      }
       // console.log(cart[0].dataValues);
     } else {
       cart = null;
+      cartCounter = null;
     }
     // console.log(cart);
     res.render("index", {
@@ -119,7 +123,8 @@ module.exports = function(app) {
       searchTotal: dbBike.length,
       card: card,
       loggedIn: req.user,
-      cart: cart
+      cart: cart,
+      cartCounter: cartCounter
     });
   });
 };
