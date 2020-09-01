@@ -12,7 +12,8 @@ module.exports = function(sequelize, DataTypes) {
       },
       totalquantity: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        defaultValue: 1
       }
     },
     { timestamps: true }

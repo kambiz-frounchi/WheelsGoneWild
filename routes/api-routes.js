@@ -1,6 +1,6 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
@@ -49,13 +49,12 @@ module.exports = function(app) {
         firstname: req.user.firstname,
         lastname: req.user.lastname
       });
-      // res.json(true);
     }
   });
 
   app.post("/api/orderItem", isAuthenticated, async (req, res) => {
     console.log(req.body);
-    console.log(req.user);
+    // console.log(req.user);
     //find pending order under current user
     let order = await db.Order.findOne({
       where: {
@@ -81,7 +80,8 @@ module.exports = function(app) {
     } else {
       await db.Order.update(
         {
-          totalprice: order.totalprice + bike.price
+          totalprice: order.totalprice + bike.price,
+          totalquantity: Sequelize.literal("totalquantity + 1")
         },
         {
           where: {
@@ -118,10 +118,65 @@ module.exports = function(app) {
         }
       );
     }
-
-    res.status(200).json();
+    res.status(200).json(true);
   });
 
+  // Request to decrease quantity of orderitem
+  app.put("/api/orderItem", isAuthenticated, async (req, res) => {
+    console.log(req.body);
+    await db.OrderItem.update(
+      {
+        quantity: Sequelize.literal("quantity - 1")
+      },
+      {
+        where: {
+          bikeId: req.body.bikeId,
+          quantity: {
+            [Op.gt]: 0
+          }
+        },
+        attributes: [db.OrderItem.quantity],
+        include: [
+          {
+            model: db.Order,
+            where: {
+              UserId: req.user.id,
+              state: "pending"
+            }
+          }
+        ]
+      }
+    );
+    const { price } = await db.Bike.findOne({
+      raw: true,
+      where: {
+        id: req.body.bikeId
+      }
+    });
+    // console.log(price);
+    await db.Order.update(
+      {
+        totalquantity: Sequelize.literal("totalquantity - 1"),
+        totalprice: Sequelize.literal(`totalprice - ${price}`)
+      },
+      {
+        where: {
+          state: "pending"
+        }
+      }
+    );
+
+    await db.OrderItem.destroy({
+      where: {
+        quantity: 0
+      }
+    }).then(item => {
+      console.log(item);
+      res.status(200).json(true);
+    });
+  });
+
+  // Route to confirm pending order to ordered
   app.post("/api/order", isAuthenticated, (req, res) => {
     //find order and update its state to ordered
     db.Order.findOne({
@@ -145,8 +200,8 @@ module.exports = function(app) {
     });
   });
 
+  //find pending order under current user
   app.get("/api/orderItems", isAuthenticated, async (req, res) => {
-    //find pending order under current user
     const order = await db.Order.findOne({
       where: {
         UserId: req.user.id,
@@ -168,12 +223,11 @@ module.exports = function(app) {
         res.json(orderItems);
       }
     }
-
     res.status(200).end();
   });
 
+  //find non-pending orders under current user
   app.get("/api/orders", isAuthenticated, async (req, res) => {
-    //find non-pending orders under current user
     const nonPendingOrders = await db.Order.findAll({
       where: {
         state: {
@@ -196,17 +250,20 @@ module.exports = function(app) {
         }
       });
     }
-
     res.status(200).end();
   });
 
-  app.get("/api/user", (req, res) => {
-    //req.user --> to find order
-    res;
-  });
-
-  app.get("/api/users/", (req, res) => {
-    res;
+  // Empty shopping cart for current user
+  app.delete("/api/order", isAuthenticated, (req, res) => {
+    console.log("test");
+    db.Order.destroy({
+      where: {
+        UserId: req.user.id
+      }
+    }).then(data => {
+      console.log(data);
+      res.status(200).json(true);
+    });
   });
 
   app.get("/api/bikes", (req, res) => {
@@ -222,7 +279,6 @@ module.exports = function(app) {
   });
 
   app.get("/api/bikes/filter/brand/:id", (req, res) => {
-    console.log(req.user);
     db.Bike.findAll({
       where: {
         brand: req.params.id

@@ -31,7 +31,6 @@ module.exports = function(app) {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/cart", isAuthenticated, (req, res) => {
     res.redirect("/#cart");
-    res;
   });
 
   app.get("/orderhistory", isAuthenticated, (req, res) => {
@@ -76,9 +75,9 @@ module.exports = function(app) {
     const year = [...new Set(dbBike.map(element => element.dataValues.year))];
 
     const card = [...new Set(dbBike.map(element => element.dataValues))];
-    console.log(req.user);
+    // console.log(req.user);
 
-    let cart;
+    let cart, cartCounter;
     if (req.user) {
       cart = await db.OrderItem.findAll({
         // raw: true,
@@ -98,7 +97,12 @@ module.exports = function(app) {
           }
         ]
       });
-      // console.log(cart.length);
+      if (cart.length > 0) {
+        cartCounter = cart[0].dataValues.Order.dataValues.totalquantity;
+      } else {
+        cartCounter = 0;
+      }
+      // console.log(cart[0].dataValues);
     } else {
       cart = null;
     }
@@ -119,7 +123,8 @@ module.exports = function(app) {
       searchTotal: dbBike.length,
       card: card,
       loggedIn: req.user,
-      cart: cart
+      cart: cart,
+      cartCounter: cartCounter
     });
   });
 };
