@@ -75,6 +75,14 @@ $(document).ready(() => {
   // Event listener for empty cart button on cart modal
   $("#orderEmpty").click(() => {
     console.log("Empty order");
+    $.ajax({
+      url: "/api/order",
+      type: "Delete"
+    }).then(data => {
+      console.log(data);
+      $("#shoppingCart").empty();
+      location.replace("/");
+    });
   });
 
   // Event listener for close button on cart modal

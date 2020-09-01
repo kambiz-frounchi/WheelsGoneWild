@@ -49,7 +49,6 @@ module.exports = function(app) {
         firstname: req.user.firstname,
         lastname: req.user.lastname
       });
-      // res.json(true);
     }
   });
 
@@ -119,7 +118,6 @@ module.exports = function(app) {
         }
       );
     }
-
     res.status(200).json(true);
   });
 
@@ -202,8 +200,8 @@ module.exports = function(app) {
     });
   });
 
+  //find pending order under current user
   app.get("/api/orderItems", isAuthenticated, async (req, res) => {
-    //find pending order under current user
     const order = await db.Order.findOne({
       where: {
         UserId: req.user.id,
@@ -225,12 +223,11 @@ module.exports = function(app) {
         res.json(orderItems);
       }
     }
-
     res.status(200).end();
   });
 
+  //find non-pending orders under current user
   app.get("/api/orders", isAuthenticated, async (req, res) => {
-    //find non-pending orders under current user
     const nonPendingOrders = await db.Order.findAll({
       where: {
         state: {
@@ -253,17 +250,20 @@ module.exports = function(app) {
         }
       });
     }
-
     res.status(200).end();
   });
 
-  app.get("/api/user", (req, res) => {
-    //req.user --> to find order
-    res;
-  });
-
-  app.get("/api/users/", (req, res) => {
-    res;
+  // Empty shopping cart for current user
+  app.delete("/api/order", isAuthenticated, (req, res) => {
+    console.log("test");
+    db.Order.destroy({
+      where: {
+        UserId: req.user.id
+      }
+    }).then(data => {
+      console.log(data);
+      res.status(200).json(true);
+    });
   });
 
   app.get("/api/bikes", (req, res) => {

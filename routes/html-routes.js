@@ -31,7 +31,6 @@ module.exports = function(app) {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/cart", isAuthenticated, (req, res) => {
     res.redirect("/#cart");
-    res;
   });
 
   app.get("/orderhistory", isAuthenticated, (req, res) => {
@@ -98,13 +97,14 @@ module.exports = function(app) {
           }
         ]
       });
-      if (cart) {
+      if (cart.length > 0) {
         cartCounter = cart[0].dataValues.Order.dataValues.totalquantity;
+      } else {
+        cartCounter = 0;
       }
       // console.log(cart[0].dataValues);
     } else {
       cart = null;
-      cartCounter = null;
     }
     // console.log(cart);
     res.render("index", {
