@@ -293,7 +293,6 @@ module.exports = function(app) {
       where: {
         category: req.params.id
       }
-      // limit: 10
     }).then(dbBike => {
       console.log(dbBike);
       res.json(dbBike);
@@ -313,10 +312,9 @@ module.exports = function(app) {
       where: {
         framematerial: req.params.id
       }
-      // limit: 10
-    }).then(dbBike => {
-      console.log(dbBike);
-      res.json(dbBike);
+    }).then(bikes => {
+      console.log(bikes);
+      res.json(bikes);
     });
   });
 
@@ -325,10 +323,78 @@ module.exports = function(app) {
       where: {
         year: req.params.id
       }
-      // limit: 10
-    }).then(dbBike => {
-      console.log(dbBike);
-      res.json(dbBike);
+    }).then(bikes => {
+      console.log(bikes);
+      res.json(bikes);
     });
+  });
+
+  //admin routes
+  app.post("/api/bikes", isAuthenticated, async (req, res) => {
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        console.log(req.body.bike);
+        db.Bike.create(req.body.bike).then(dbBike => {
+          res.json(dbBike);
+        });
+      }
+    }
+  });
+
+  app.delete("/api/bikes/:id", isAuthenticated, async (req, res) => {
+    console.log("delete");
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        console.log(`bikeid = ${req.params.id}`);
+        db.Bike.destroy({
+          where: {
+            id: req.params.id
+          }
+        })
+          .then(() => {
+            res.status(200).end();
+          })
+          .catch(() => {
+            res.status(200).end();
+          });
+      }
+    }
+  });
+
+  app.put("/api/bikes/:id", isAuthenticated, async (req, res) => {
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        console.log(`bikeid = ${req.params.id}, new price = ${req.body}`);
+        db.Bike.update(req.body, {
+          where: {
+            id: req.params.id
+          }
+        })
+          .then(() => {
+            res.status(200).end();
+          })
+          .catch(() => {
+            res.status(200).end();
+          });
+      }
+    }
   });
 };

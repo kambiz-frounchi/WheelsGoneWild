@@ -1,7 +1,11 @@
 <header>
 {{#if loggedIn}}
-    {{> usermenu}}
-    {{> shoppingcart}}
+    {{#if admin}}
+        {{>adminmenu}}
+    {{else}}
+        {{> usermenu}}       
+        {{> shoppingcart}}
+    {{/if}}
 {{else}}
     {{> guestmenu}}
 {{/if}}

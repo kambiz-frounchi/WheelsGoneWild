@@ -9,16 +9,18 @@ module.exports = function(app) {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect("/");
+    } else {
+      res.sendFile(path.join(__dirname, "../public/signup.html"));
     }
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
   });
 
   app.get("/login", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect("/");
+    } else {
+      res.sendFile(path.join(__dirname, "../public/login.html"));
     }
-    res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
   // Route for logging user out
@@ -53,6 +55,19 @@ module.exports = function(app) {
   });
 
   app.get("/", async (req, res) => {
+    let admin = false;
+    if (req.user) {
+      const user = await db.User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+
+      if (user.role === "admin") {
+        admin = true;
+      }
+    }
+
     const dbBike = await db.Bike.findAll({});
     const category = [
       ...new Set(dbBike.map(element => element.dataValues.category))
@@ -124,7 +139,41 @@ module.exports = function(app) {
       card: card,
       loggedIn: req.user,
       cart: cart,
-      cartCounter: cartCounter
+      cartCounter: cartCounter,
+      admin: admin
+    });
+  });
+
+  app.get("/admin", isAuthenticated, async (req, res) => {
+    const dbBikes = await db.Bike.findAll({});
+
+    const bikes = dbBikes.map(element => element.dataValues);
+
+    const categories = [
+      ...new Set(dbBikes.map(element => element.dataValues.category))
+    ];
+
+    const brands = [
+      ...new Set(dbBikes.map(element => element.dataValues.brand))
+    ];
+
+    const currentYear = new Date().getFullYear();
+    const years = [
+      `${currentYear - 1}`,
+      `${currentYear}`,
+      `${currentYear + 1}`
+    ];
+
+    const frameMaterials = [
+      ...new Set(dbBikes.map(element => element.dataValues.framematerial))
+    ];
+
+    res.render("admin", {
+      bikes: bikes,
+      categories: categories,
+      brands: brands,
+      years: years,
+      framematerials: frameMaterials
     });
   });
 };

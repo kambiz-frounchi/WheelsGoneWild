@@ -1,0 +1,135 @@
+{{!-- Top NavMenu --}}
+<div class="menu" id="menu">
+    <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+    {{!-- <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a> --}}
+    {{!-- <a href="/signup"><i class="fas fa-clipboard-list"></i> Sign Up</a> --}}
+    <a href="/logout" class="menuRight"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="/profile" id="profile" class="menuRight" href=""><i class="fas fa-user"></i> Profile</a>
+    <a href="javascript:void(0);" class="icon" onclick="mobileMenu()"><i class="fa fa-bars"></i></a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="" style="margin:auto">
+            <div class="dropdown" id="admin-menu">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose operation
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" data-admin-item="create-bike" href="#">Create Bike</a>
+                    <a class="dropdown-item" data-admin-item="update-bike" href="#">Update Bike</a>
+                    <a class="dropdown-item" data-admin-item="delete-bike" href="#">Delete Bike</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="create-bike-form">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="" value="" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="brand">Brand</label>
+                <select class="custom-select d-block w-100" id="brand" required>
+                    <option value="">Choose...</option>
+                    {{#each brands}}
+                        <option>{{this}}</option>      
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="category">Category</label>
+                <select class="custom-select d-block w-100" id="category" required>
+                    <option value="">Choose...</option>
+                    {{#each categories}}
+                        <option>{{this}}</option>      
+                    {{/each}}
+                </select>          
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="year">Year</label>
+                <select class="custom-select d-block w-100" id="year" required>
+                    <option value="">Choose...</option>
+                    {{#each years}}
+                        <option>{{this}}</option>      
+                    {{/each}}
+                </select>          
+            </div> 
+        </div>        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" id="price" placeholder="" value="" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="colour">Colour</label>
+                <input type="text" class="form-control" id="colour" placeholder="" value="" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="framesize">Frame Size</label>
+                <input type="text" class="form-control" id="framesize" placeholder="" value="" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="framematerial">Frame Material</label>
+                <select class="custom-select d-block w-100" id="framematerial" required>
+                    <option value="">Choose...</option>
+                    {{#each framematerials}}
+                        <option>{{this}}</option>      
+                    {{/each}}
+                </select>          
+            </div> 
+        </div>
+        <div class="row">
+            <div class="" style="margin:auto">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>            
+            </div>        
+        </div>         
+    </form>
+
+    <form class="delete-bike-form">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="name">Name</label>
+                <select class="custom-select d-block w-100" id="deletename" required>
+                    <option value="">Choose...</option>
+                    {{#each bikes}}
+                        <option value="{{id}}">{{name}}</option>      
+                    {{/each}}
+                </select>          
+            </div>
+        </div>
+        <div class="row">
+            <div class="" style="margin:auto">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>            
+            </div>        
+        </div>
+    </form>
+    <form class="update-bike-form">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="name">Name</label>
+                <select class="custom-select d-block w-100" id="updatename" required>
+                    <option value="">Choose...</option>
+                    {{#each bikes}}
+                        <option value="{{id}}">{{name}}</option>      
+                    {{/each}}
+                </select>          
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" id="updateprice" placeholder="" value="" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="" style="margin:auto">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>            
+            </div>        
+        </div>
+    </form>
+</div>
+
