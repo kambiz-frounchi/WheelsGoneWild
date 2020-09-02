@@ -4,13 +4,15 @@
 <div id="profileForm" class="container-fluid">
   <div class="row">
     <div class="col-lg-3">
-
       <div class="row">
-        <div class="text-left">
-          <img id="profileAvatar" src="/images/avatar_placeholder.jpg" class="avatar rounded-circle img-fluid img-thumbnail" alt="avatar" style="width: 200px">
-          <h6>Upload a different photo...</h6>
-          <input name="avatar" type="file" class="text-center center-block file-upload">
-        </div>
+        <form ref="profileAvatar" id="profileAvatar" action="/upload" method="post" encType="multipart/form-data">
+          <div class="text-left">
+            <img id="profileAvatar" src="/avatar/avatar.jpg" class="avatar rounded-circle img-fluid img-thumbnail" alt="avatar" style="width: 200px">
+            <h6>Upload a different photo...</h6>
+            <input name="avatar" type="file" class="text-center center-block file-upload">
+            <input type="submit" value="Upload!"/>
+          </div>
+        </form>
       </div>
 
     <div id="profileList" class="list-group ">
