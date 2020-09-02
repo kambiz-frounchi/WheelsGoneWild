@@ -37,19 +37,71 @@ module.exports = function(app) {
     res;
   });
 
-  app.get("/profile", isAuthenticated, (req, res) => {
-    console.log("test");
-    if (!req.user) {
-      res.json(false);
-    } else {
-      const { email, firstname, lastname, phone } = req.user;
-      res.render("profile", {
-        email: email,
-        firstname: firstname,
-        lastname: lastname,
-        phone: phone
+  app.get("/profile", isAuthenticated, async (req, res) => {
+    // console.log(req.user);
+    const {
+      email,
+      firstname,
+      lastname,
+      phone,
+      address,
+      address1,
+      country,
+      province,
+      postal,
+      avatar,
+      createdAt,
+      updatedAt
+    } = await db.User.findOne({
+      raw: true,
+      where: { id: req.user.id }
+    });
+
+    let cart, cartCounter;
+    if (req.user) {
+      cart = await db.OrderItem.findAll({
+        // raw: true,
+        include: [
+          {
+            model: db.Order,
+            where: {
+              UserId: req.user.id,
+              state: "pending"
+            },
+            attributes: {
+              exclude: ["UserId"]
+            }
+          },
+          {
+            model: db.Bike
+          }
+        ]
       });
+      if (cart.length > 0) {
+        cartCounter = cart[0].dataValues.Order.dataValues.totalquantity;
+      } else {
+        cartCounter = 0;
+      }
+      // console.log(cart[0].dataValues);
+    } else {
+      cart = null;
     }
+    res.render("profile", {
+      email: email,
+      firstname: firstname,
+      lastname: lastname,
+      phone: phone,
+      address: address,
+      address1: address1,
+      country: country,
+      province: province,
+      postal: postal,
+      avatar: avatar,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      cart: cart,
+      cartCounter: cartCounter
+    });
   });
 
   app.get("/", async (req, res) => {

@@ -52,6 +52,13 @@ module.exports = function(app) {
     }
   });
 
+  // Update profile data
+  app.post("/profile", isAuthenticated, async (req, res) => {
+    console.log(req.body);
+    await db.User.update(req.body, { where: { id: req.user.id } });
+    res.redirect("/profile");
+  });
+
   app.post("/api/orderItem", isAuthenticated, async (req, res) => {
     console.log(req.body);
     // console.log(req.user);
