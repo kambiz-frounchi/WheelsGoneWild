@@ -291,3 +291,28 @@ text-align: right;
 -moz-user-select: none;
 appearance: none;
 }
+
+/* Form on profile page */
+#profileForm {
+  max-width: 960px;
+  margin-top: 3rem;
+}
+
+#profileFormR {
+  padding-left: 5rem;
+}
+
+/* Left side list on profile page */
+#profileList {
+  margin-top: 2rem;
+  margin-left: -2rem
+}
+
+#profileAvatar {
+  margin-bottom: 1rem;
+}
+
+#profileUpdate {
+  margin-top: 15px;
+}
+

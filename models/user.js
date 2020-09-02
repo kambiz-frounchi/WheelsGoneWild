@@ -33,7 +33,35 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "1234 Fake St"
+    },
+    address2: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "Canada"
+    },
+    province: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "Ontario"
+    },
+    postal: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "A1B 2C3"
+    },
+    avatar: {
+      type: DataTypes.STRING,
       allowNull: true
     }
   });

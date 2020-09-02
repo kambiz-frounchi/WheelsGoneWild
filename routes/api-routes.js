@@ -52,6 +52,34 @@ module.exports = function(app) {
     }
   });
 
+  // Update profile data
+  app.post("/profile", isAuthenticated, async (req, res) => {
+    console.log(req.body);
+    await db.User.update(req.body, { where: { id: req.user.id } });
+    res.redirect("/profile");
+  });
+
+  // Upload avatar file
+  app.post("/upload", async (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send("No files were uploaded.");
+    }
+    // console.log(req.files);
+    const avatar = req.files.avatar;
+    console.log(avatar);
+    avatar.name = "avatar.jpg";
+    console.log(avatar);
+    // Use the mv() method to place the file somewhere on your server
+    await avatar.mv("./public/avatar/" + avatar.name, err => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+    });
+    res.redirect("/profile");
+  });
+
+  // Add item to shopping cart
   app.post("/api/orderItem", isAuthenticated, async (req, res) => {
     console.log(req.body);
     // console.log(req.user);
