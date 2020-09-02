@@ -283,6 +283,7 @@ module.exports = function(app) {
       });
 
       if (user.role === "admin") {
+        console.log(req.body.bike);
         db.Bike.create(req.body.bike).then(dbBike => {
           res.json(dbBike);
         });
@@ -291,6 +292,7 @@ module.exports = function(app) {
   });
 
   app.delete("/api/bikes/:id", isAuthenticated, async (req, res) => {
+    console.log("delete");
     if (req.user) {
       const user = await db.User.findOne({
         where: {
@@ -299,18 +301,23 @@ module.exports = function(app) {
       });
 
       if (user.role === "admin") {
+        console.log(`bikeid = ${req.params.id}`);
         db.Bike.destroy({
           where: {
             id: req.params.id
           }
-        }).then(dbBike => {
-          res.json(dbBike);
-        });
+        })
+          .then(() => {
+            res.status(200).end();
+          })
+          .catch(() => {
+            res.status(200).end();
+          });
       }
     }
   });
 
-  app.put("/api/bikes", isAuthenticated, async (req, res) => {
+  app.put("/api/bikes/:id", isAuthenticated, async (req, res) => {
     if (req.user) {
       const user = await db.User.findOne({
         where: {
@@ -319,13 +326,18 @@ module.exports = function(app) {
       });
 
       if (user.role === "admin") {
-        db.Bike.update(req.body.bike, {
+        console.log(`bikeid = ${req.params.id}, new price = ${req.body}`);
+        db.Bike.update(req.body, {
           where: {
-            id: req.body.bike.id
+            id: req.params.id
           }
-        }).then(dbBike => {
-          res.json(dbBike);
-        });
+        })
+          .then(() => {
+            res.status(200).end();
+          })
+          .catch(() => {
+            res.status(200).end();
+          });
       }
     }
   });
