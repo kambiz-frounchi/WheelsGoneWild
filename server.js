@@ -5,13 +5,14 @@ const exphbs = require("express-handlebars");
 const fileUpload = require("express-fileupload");
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
-
+const compression = require("compression");
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
 const app = express();
+// app.use(compression());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
