@@ -18,21 +18,21 @@
     "compression": "^1.7.4",
     "express": "^4.17.0",
     "express-fileupload": "^1.2.0",
-    "express-handlebars": "^5.1.0",
+    "express-handlebars": "^5.2.0",
     "express-session": "^1.16.1",
-    "mysql2": "^1.6.5",
+    "mysql2": "^2.2.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
-    "cross-env": "^5.2.0",
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.2",
-    "mocha": "^5.2.0",
-    "prettier": "^1.13.7"
+    "cross-env": "^7.0.3",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.1"
   }
 }
