@@ -31,11 +31,10 @@ GIVEN the cart modal, I should be able to edit the products and quantities, so t
 * [Installation](#Installation)
 * [Usage](#Usage)
   * [Signup](#Signup)
-  * [Login](#Login)
-  * [User](#User)
-  * [Admin](#Admin)
+  * [Profile](#Profile)
   * [Filters](#Filters)
   * [Cart](#Cart)
+  * [Admin](#Admin)
 * [Technologies](#Technologies)
 * [Authors](#Authors)
 * [License](#License)
@@ -53,6 +52,25 @@ Type the following in any CLI to run the app.
 node server.js
 ```
 Website features have also been demo-ed below
+### Signup
+![Signup](assets/Signup.gif)
+
+
+### Profile
+![Profile](assets/Profile.gif)
+
+
+### Filters
+![Filters](assets/Filters.gif)
+
+
+### Cart
+![Cart](assets/Cart.gif)
+
+
+### Admin
+![Admin](assets/Admin.gif)
+
 
 ## Technologies
 * [Express](https://expressjs.com/)
@@ -73,3 +91,5 @@ Website features have also been demo-ed below
 This project is licensed under the MIT License - see the [LICENSE.md](/LICENSE.md) file for details
 ## Contributing
 Message any of the authors or open a pull request. See [CONTRIBUTING.md](/Contributing.md)
+## Questions
+Contact any of the [authors](#Authors)
