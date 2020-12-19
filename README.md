@@ -88,8 +88,8 @@ Website features have also been demo-ed below
 ## Authors
 [Kambiz Frounchi](https://github.com/kambiz-frounchi), [Shamik Haldar](https://github.com/shamik05), [Adam Tartar](https://github.com/adamwrites)
 ## License 
-This project is licensed under the MIT License - see the [LICENSE.md](/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 ## Contributing
-Message any of the authors or open a pull request. See [CONTRIBUTING.md](/Contributing.md)
+Message any of the authors or open a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md)
 ## Questions
 Contact any of the [authors](#Authors)
