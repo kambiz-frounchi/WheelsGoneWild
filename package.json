@@ -1,7 +1,7 @@
 {
-  "name": "WheelsGoneWild",
+  "name": "Wheels Gone Wild",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bicycle shopping site with MVC framework",
   "main": "server.js",
   "scripts": {
     "test": "npm run lint",
@@ -10,8 +10,8 @@
     "fix": "eslint --fix .",
     "watch": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["mvc", "express", "sequelize", "MySQL", "handlebars", "bikes", "ecommerce", "passport"],
+  "author": "Kambiz Frounchi, Shamik Haldar, Adam Tartar",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "2.4.3",
