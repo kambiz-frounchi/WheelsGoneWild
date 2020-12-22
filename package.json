@@ -1,5 +1,5 @@
 {
-  "name": "Wheels Gone Wild",
+  "name": "WheelsGoneWild",
   "version": "1.0.0",
   "description": "Bicycle shopping site with MVC framework",
   "main": "server.js",
